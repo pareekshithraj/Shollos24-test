@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Developer Dashboard - Schools24</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <script src="theme.js"></script>
+</head>
+<body>
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">Dev</span>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="header-right">
+    <button class="theme-toggle" onclick="toggleTheme()"><span class="theme-icon">🌙</span></button>
+  </div>
+</header>
+
+<div class="main-container">
+  <div class="admin-section">
+    <h2 class="section-title">🏫 Create School</h2>
+    <div class="teacher-allocation">
+      <div class="allocation-form">
+        <div class="form-group">
+          <label>School Name</label>
+          <input id="schoolName" placeholder="e.g., SCHOOLS24 Academy" />
+        </div>
+        <div class="form-group">
+          <label>School Code</label>
+          <input id="schoolCode" placeholder="e.g., S24ACA" />
+        </div>
+        <div class="form-group">
+          <label>Domain (optional)</label>
+          <input id="schoolDomain" placeholder="school.example.com" />
+        </div>
+        <div class="form-group">
+          <label>Email (optional)</label>
+          <input id="schoolEmail" placeholder="contact@school.com" />
+        </div>
+        <button class="btn" onclick="createSchool()">Create School</button>
+      </div>
+
+      <div class="allocation-form">
+        <h3 style="color:#fff; margin-bottom:10px;">Your Schools</h3>
+        <div id="schoolsList" class="allocation-list"></div>
+        <button class="btn" onclick="loadSchools()">Refresh</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <h2 class="section-title">👤 Provision School Admin</h2>
+    <div class="teacher-allocation">
+      <div class="allocation-form">
+        <div class="form-group">
+          <label>Select School</label>
+          <select id="provisionSchool"></select>
+        </div>
+        <div class="form-group">
+          <label>Name</label>
+          <input id="adminName" placeholder="Admin Name" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input id="adminEmail" placeholder="admin@school.com" />
+        </div>
+        <div class="form-group">
+          <label>User ID</label>
+          <input id="adminUserId" placeholder="e.g., ADM001" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="adminPassword" type="password" placeholder="minimum 6 chars" />
+        </div>
+        <button class="btn" onclick="provisionAdmin()">Provision Admin</button>
+      </div>
+      <div class="allocation-form">
+        <div id="devMessages" class="allocation-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <h2 class="section-title">➕ Add User to School</h2>
+    <div class="teacher-allocation">
+      <div class="allocation-form">
+        <div class="form-group">
+          <label>Select School</label>
+          <select id="userSchool"></select>
+        </div>
+        <div class="form-group">
+          <label>Role</label>
+          <select id="userRole">
+            <option value="teacher">Teacher</option>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Name</label>
+          <input id="userName" placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input id="userEmail" placeholder="user@school.com" />
+        </div>
+        <div class="form-group">
+          <label>User ID</label>
+          <input id="userUserId" placeholder="e.g., TCHR001 / STU001" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="userPassword" type="password" placeholder="minimum 6 chars" />
+        </div>
+        <button class="btn" onclick="createSchoolUser()">Create User</button>
+      </div>
+      <div class="allocation-form">
+        <h3 style="color:#fff; margin-bottom:10px;">School Users</h3>
+        <div class="form-group">
+          <label>School</label>
+          <select id="usersListSchool" onchange="loadSchoolUsers()"></select>
+        </div>
+        <div id="schoolUsers" class="allocation-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'http://localhost:5000/api';
+let authToken = localStorage.getItem('authToken');
+
+function notify(msg, type='info') {
+  const box = document.createElement('div');
+  box.style.cssText = `margin:8px 0;padding:10px;border-radius:8px;${type==='error'?'background:#ff475733;color:#ffccd1;':'background:#00d4ff33;color:#d4f6ff;'}`;
+  box.textContent = msg;
+  const target = document.getElementById('devMessages');
+  if (target) target.prepend(box);
+}
+
+async function api(endpoint, options={}) {
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    headers: { 'Content-Type':'application/json', ...(authToken?{Authorization:`Bearer ${authToken}`}:{}) },
+    ...options
+  });
+  const data = await res.json().catch(()=>({}));
+  if (!res.ok) throw new Error(data.message || 'Request failed');
+  return data;
+}
+
+async function loadSchools() {
+  try {
+    const data = await api('/developer/schools');
+    const list = document.getElementById('schoolsList');
+    const sel = document.getElementById('provisionSchool');
+    const userSel = document.getElementById('userSchool');
+    const usersListSel = document.getElementById('usersListSchool');
+    list.innerHTML = '';
+    sel.innerHTML = '';
+    userSel.innerHTML = '';
+    usersListSel.innerHTML = '';
+    data.schools.forEach(s => {
+      const item = document.createElement('div');
+      item.className = 'allocation-item';
+      item.innerHTML = `<div class="allocation-info"><h4>${s.name} (${s.code})</h4><p>${s.domain||''} ${s.email?('• '+s.email):''}</p></div>`;
+      list.appendChild(item);
+      const opt = document.createElement('option');
+      opt.value = s._id; opt.textContent = `${s.name} (${s.code})`;
+      sel.appendChild(opt);
+      const opt2 = document.createElement('option');
+      opt2.value = s._id; opt2.textContent = `${s.name} (${s.code})`;
+      userSel.appendChild(opt2);
+      const opt3 = document.createElement('option');
+      opt3.value = s._id; opt3.textContent = `${s.name} (${s.code})`;
+      usersListSel.appendChild(opt3);
+    });
+    loadSchoolUsers();
+  } catch(e){ notify(e.message,'error'); }
+}
+
+async function createSchool() {
+  const name = document.getElementById('schoolName').value.trim();
+  const code = document.getElementById('schoolCode').value.trim();
+  const domain = document.getElementById('schoolDomain').value.trim();
+  const email = document.getElementById('schoolEmail').value.trim();
+  if (!name || !code) return notify('Name and code are required','error');
+  try {
+    await api('/developer/schools', { method:'POST', body: JSON.stringify({ name, code, domain, email }) });
+    notify('School created','success');
+    loadSchools();
+  } catch(e){ notify(e.message,'error'); }
+}
+
+async function provisionAdmin() {
+  const schoolId = document.getElementById('provisionSchool').value;
+  const name = document.getElementById('adminName').value.trim();
+  const email = document.getElementById('adminEmail').value.trim();
+  const userId = document.getElementById('adminUserId').value.trim();
+  const password = document.getElementById('adminPassword').value;
+  if (!schoolId || !name || !email || !userId || !password) return notify('Fill all fields','error');
+  try {
+    await api(`/developer/schools/${schoolId}/provision-admin`, { method:'POST', body: JSON.stringify({ name, email, userId, password }) });
+    notify('Admin provisioned','success');
+  } catch(e){ notify(e.message,'error'); }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const user = JSON.parse(localStorage.getItem('user')||'{}');
+  if (user.role !== 'developer') {
+    notify('Developer access only','error');
+  }
+  loadSchools();
+});
+
+async function loadSchoolUsers() {
+  try {
+    const schoolId = document.getElementById('usersListSchool').value;
+    if (!schoolId) return;
+    const data = await api(`/developer/schools/${schoolId}/users`);
+    const container = document.getElementById('schoolUsers');
+    container.innerHTML = '';
+    data.users.forEach(u => {
+      const item = document.createElement('div');
+      item.className = 'allocation-item';
+      item.innerHTML = `<div class="allocation-info"><h4>${u.name} (${u.role})</h4><p>${u.email} • ${u.userId}</p></div>`;
+      container.appendChild(item);
+    });
+    if (container.children.length === 0) {
+      container.innerHTML = '<p style="color:#fff;opacity:0.8;">No users yet</p>';
+    }
+  } catch(e){ notify(e.message,'error'); }
+}
+
+async function createSchoolUser() {
+  const schoolId = document.getElementById('userSchool').value;
+  const role = document.getElementById('userRole').value;
+  const name = document.getElementById('userName').value.trim();
+  const email = document.getElementById('userEmail').value.trim();
+  const userId = document.getElementById('userUserId').value.trim();
+  const password = document.getElementById('userPassword').value;
+  if (!schoolId || !role || !name || !email || !userId || !password) return notify('Fill all fields','error');
+  try {
+    await api(`/developer/schools/${schoolId}/users`, { method:'POST', body: JSON.stringify({ role, name, email, userId, password }) });
+    notify('User created','success');
+    loadSchoolUsers();
+  } catch(e){ notify(e.message,'error'); }
+}
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Hub - Time Table</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="timetable.css" />
+</head>
+<body>
+
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">School</span>
+  </div>
+  <div class="header-center">
+    <h1>Time Table</h1>
+  </div>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+    </button>
+    <div class="user-info">
+      <span id="userRole">Student</span>
+      <a href="profile.html" class="student-profile"><img src="../assets/icons/profile.png" alt="User Profile" loading="lazy"></a>
+    </div>
+  </div>
+</header>
+
+<div class="timetable-container">
+  <div class="timetable-grid">
+    <!-- Header row with periods -->
+    <div class="grid-header">
+      <div class="day-header"></div>
+      <div class="period-header">1</div>
+      <div class="period-header">2</div>
+      <div class="period-header">3</div>
+      <div class="period-header">4</div>
+      <div class="period-header">5</div>
+      <div class="period-header">6</div>
+      <div class="period-header">7</div>
+      <div class="period-header">8</div>
+    </div>
+    
+    <!-- Monday row -->
+    <div class="day-row">
+      <div class="day-cell">Monday</div>
+      <div class="subject-cell" data-day="monday" data-period="1" contenteditable="false">
+        <span class="subject-text">Math</span>
+        <span class="teacher-text">Mr. Smith</span>
+      </div>
+      <div class="subject-cell" data-day="monday" data-period="2" contenteditable="false">
+        <span class="subject-text">Science</span>
+        <span class="teacher-text">Ms. Johnson</span>
+      </div>
+      <div class="subject-cell" data-day="monday" data-period="3" contenteditable="false">
+        <span class="subject-text">English</span>
+        <span class="teacher-text">Mr. Brown</span>
+      </div>
+      <div class="subject-cell" data-day="monday" data-period="4" contenteditable="false">
+        <span class="subject-text">Social</span>
+        <span class="teacher-text">Ms. Davis</span>
+      </div>
+      <div class="subject-cell" data-day="monday" data-period="5" contenteditable="false">
+        <span class="subject-text">Lunch</span>
+        <span class="teacher-text">-</span>
+      </div>
+      <div class="subject-cell" data-day="monday" data-period="6" contenteditable="false">
+        <span class="subject-text">Hindi</span>
+        <span class="teacher-text">Mr. Kumar</span>
+      </div>
+      <div class="subject-cell" data-day="monday" data-period="7" contenteditable="false">
+        <span class="subject-text">PE</span>
+        <span class="teacher-text">Mr. Wilson</span>
+      </div>
+      <div class="subject-cell" data-day="monday" data-period="8" contenteditable="false">
+        <span class="subject-text">Art</span>
+        <span class="teacher-text">Ms. Lee</span>
+      </div>
+    </div>
+    
+    <!-- Tuesday row -->
+    <div class="day-row">
+      <div class="day-cell">Tuesday</div>
+      <div class="subject-cell" data-day="tuesday" data-period="1" contenteditable="false">
+        <span class="subject-text">Science</span>
+        <span class="teacher-text">Ms. Johnson</span>
+      </div>
+      <div class="subject-cell" data-day="tuesday" data-period="2" contenteditable="false">
+        <span class="subject-text">Math</span>
+        <span class="teacher-text">Mr. Smith</span>
+      </div>
+      <div class="subject-cell" data-day="tuesday" data-period="3" contenteditable="false">
+        <span class="subject-text">Social</span>
+        <span class="teacher-text">Ms. Davis</span>
+      </div>
+      <div class="subject-cell" data-day="tuesday" data-period="4" contenteditable="false">
+        <span class="subject-text">English</span>
+        <span class="teacher-text">Mr. Brown</span>
+      </div>
+      <div class="subject-cell" data-day="tuesday" data-period="5" contenteditable="false">
+        <span class="subject-text">Lunch</span>
+        <span class="teacher-text">-</span>
+      </div>
+      <div class="subject-cell" data-day="tuesday" data-period="6" contenteditable="false">
+        <span class="subject-text">Music</span>
+        <span class="teacher-text">Ms. Taylor</span>
+      </div>
+      <div class="subject-cell" data-day="tuesday" data-period="7" contenteditable="false">
+        <span class="subject-text">Hindi</span>
+        <span class="teacher-text">Mr. Kumar</span>
+      </div>
+      <div class="subject-cell" data-day="tuesday" data-period="8" contenteditable="false">
+        <span class="subject-text">Library</span>
+        <span class="teacher-text">Ms. White</span>
+      </div>
+    </div>
+    
+    <!-- Wednesday row -->
+    <div class="day-row">
+      <div class="day-cell">Wednesday</div>
+      <div class="subject-cell" data-day="wednesday" data-period="1" contenteditable="false">
+        <span class="subject-text">English</span>
+        <span class="teacher-text">Mr. Brown</span>
+      </div>
+      <div class="subject-cell" data-day="wednesday" data-period="2" contenteditable="false">
+        <span class="subject-text">Hindi</span>
+        <span class="teacher-text">Mr. Kumar</span>
+      </div>
+      <div class="subject-cell" data-day="wednesday" data-period="3" contenteditable="false">
+        <span class="subject-text">Math</span>
+        <span class="teacher-text">Mr. Smith</span>
+      </div>
+      <div class="subject-cell" data-day="wednesday" data-period="4" contenteditable="false">
+        <span class="subject-text">Science</span>
+        <span class="teacher-text">Ms. Johnson</span>
+      </div>
+      <div class="subject-cell" data-day="wednesday" data-period="5" contenteditable="false">
+        <span class="subject-text">Lunch</span>
+        <span class="teacher-text">-</span>
+      </div>
+      <div class="subject-cell" data-day="wednesday" data-period="6" contenteditable="false">
+        <span class="subject-text">PE</span>
+        <span class="teacher-text">Mr. Wilson</span>
+      </div>
+      <div class="subject-cell" data-day="wednesday" data-period="7" contenteditable="false">
+        <span class="subject-text">Social</span>
+        <span class="teacher-text">Ms. Davis</span>
+      </div>
+      <div class="subject-cell" data-day="wednesday" data-period="8" contenteditable="false">
+        <span class="subject-text">Computer</span>
+        <span class="teacher-text">Mr. Tech</span>
+      </div>
+    </div>
+    
+    <!-- Thursday row -->
+    <div class="day-row">
+      <div class="day-cell">Thursday</div>
+      <div class="subject-cell" data-day="thursday" data-period="1" contenteditable="false">
+        <span class="subject-text">Social</span>
+        <span class="teacher-text">Ms. Davis</span>
+      </div>
+      <div class="subject-cell" data-day="thursday" data-period="2" contenteditable="false">
+        <span class="subject-text">English</span>
+        <span class="teacher-text">Mr. Brown</span>
+      </div>
+      <div class="subject-cell" data-day="thursday" data-period="3" contenteditable="false">
+        <span class="subject-text">Hindi</span>
+        <span class="teacher-text">Mr. Kumar</span>
+      </div>
+      <div class="subject-cell" data-day="thursday" data-period="4" contenteditable="false">
+        <span class="subject-text">Math</span>
+        <span class="teacher-text">Mr. Smith</span>
+      </div>
+      <div class="subject-cell" data-day="thursday" data-period="5" contenteditable="false">
+        <span class="subject-text">Lunch</span>
+        <span class="teacher-text">-</span>
+      </div>
+      <div class="subject-cell" data-day="thursday" data-period="6" contenteditable="false">
+        <span class="subject-text">Science</span>
+        <span class="teacher-text">Ms. Johnson</span>
+      </div>
+      <div class="subject-cell" data-day="thursday" data-period="7" contenteditable="false">
+        <span class="subject-text">Art</span>
+        <span class="teacher-text">Ms. Lee</span>
+      </div>
+      <div class="subject-cell" data-day="thursday" data-period="8" contenteditable="false">
+        <span class="subject-text">Music</span>
+        <span class="teacher-text">Ms. Taylor</span>
+      </div>
+    </div>
+    
+    <!-- Friday row -->
+    <div class="day-row">
+      <div class="day-cell">Friday</div>
+      <div class="subject-cell" data-day="friday" data-period="1" contenteditable="false">
+        <span class="subject-text">Math</span>
+        <span class="teacher-text">Mr. Smith</span>
+      </div>
+      <div class="subject-cell" data-day="friday" data-period="2" contenteditable="false">
+        <span class="subject-text">Social</span>
+        <span class="teacher-text">Ms. Davis</span>
+      </div>
+      <div class="subject-cell" data-day="friday" data-period="3" contenteditable="false">
+        <span class="subject-text">Science</span>
+        <span class="teacher-text">Ms. Johnson</span>
+      </div>
+      <div class="subject-cell" data-day="friday" data-period="4" contenteditable="false">
+        <span class="subject-text">Hindi</span>
+        <span class="teacher-text">Mr. Kumar</span>
+      </div>
+      <div class="subject-cell" data-day="friday" data-period="5" contenteditable="false">
+        <span class="subject-text">Lunch</span>
+        <span class="teacher-text">-</span>
+      </div>
+      <div class="subject-cell" data-day="friday" data-period="6" contenteditable="false">
+        <span class="subject-text">English</span>
+        <span class="teacher-text">Mr. Brown</span>
+      </div>
+      <div class="subject-cell" data-day="friday" data-period="7" contenteditable="false">
+        <span class="subject-text">Computer</span>
+        <span class="teacher-text">Mr. Tech</span>
+      </div>
+      <div class="subject-cell" data-day="friday" data-period="8" contenteditable="false">
+        <span class="subject-text">PE</span>
+        <span class="teacher-text">Mr. Wilson</span>
+      </div>
+    </div>
+    
+    <!-- Saturday row -->
+    <div class="day-row">
+      <div class="day-cell">Saturday</div>
+      <div class="subject-cell" data-day="saturday" data-period="1" contenteditable="false">
+        <span class="subject-text">Hindi</span>
+        <span class="teacher-text">Mr. Kumar</span>
+      </div>
+      <div class="subject-cell" data-day="saturday" data-period="2" contenteditable="false">
+        <span class="subject-text">Math</span>
+        <span class="teacher-text">Mr. Smith</span>
+      </div>
+      <div class="subject-cell" data-day="saturday" data-period="3" contenteditable="false">
+        <span class="subject-text">English</span>
+        <span class="teacher-text">Mr. Brown</span>
+      </div>
+      <div class="subject-cell" data-day="saturday" data-period="4" contenteditable="false">
+        <span class="subject-text">Science</span>
+        <span class="teacher-text">Ms. Johnson</span>
+      </div>
+      <div class="subject-cell" data-day="saturday" data-period="5" contenteditable="false">
+        <span class="subject-text">Lunch</span>
+        <span class="teacher-text">-</span>
+      </div>
+      <div class="subject-cell" data-day="saturday" data-period="6" contenteditable="false">
+        <span class="subject-text">Social</span>
+        <span class="teacher-text">Ms. Davis</span>
+      </div>
+      <div class="subject-cell" data-day="saturday" data-period="7" contenteditable="false">
+        <span class="subject-text">Library</span>
+        <span class="teacher-text">Ms. White</span>
+      </div>
+      <div class="subject-cell" data-day="saturday" data-period="8" contenteditable="false">
+        <span class="subject-text">Free Period</span>
+        <span class="teacher-text">-</span>
+      </div>
+    </div>
+  </div>
+  <a href="">
+  <button class="nav-btn">EDIT</button>
+</a>
+</div>
+
+<!-- Edit Mode Controls (Only visible for teachers) -->
+<div class="edit-controls" id="editControls" style="display: none;">
+  <button class="edit-btn" id="editModeBtn" onclick="toggleEditMode()">Edit Mode</button>
+  <button class="save-btn" id="saveBtn" onclick="saveTimetable()" style="display: none;">Save Changes</button>
+  <button class="cancel-btn" id="cancelBtn" onclick="cancelEdit()" style="display: none;">Cancel</button>
+</div>
+
+<!-- Navigation -->
+
+
+<script>
+  // Theme toggle functionality (same as dashboard)
+  function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (body.classList.contains('light-theme')) {
+      body.classList.remove('light-theme');
+      themeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Load saved theme
+  function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+    } else {
+      themeIcon.textContent = '🌙';
+    }
+  }
+
+  // Check user role and permissions
+  function checkUserRole() {
+    // This would typically come from your authentication system
+    const userRole = localStorage.getItem('userRole') || 'student';
+    const userPermissions = localStorage.getItem('userPermissions') || 'read';
+    
+    document.getElementById('userRole').textContent = userRole.charAt(0).toUpperCase() + userRole.slice(1);
+    
+    // Show edit controls only for teachers with edit permissions
+    if (userRole === 'teacher' && userPermissions.includes('edit')) {
+      document.getElementById('editControls').style.display = 'block';
+    }
+  }
+
+  // Edit mode functionality
+  let isEditMode = false;
+  let originalData = {};
+
+  function toggleEditMode() {
+    isEditMode = !isEditMode;
+    const cells = document.querySelectorAll('.subject-cell');
+    const editBtn = document.getElementById('editModeBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    if (isEditMode) {
+      // Store original data
+      cells.forEach(cell => {
+        const day = cell.dataset.day;
+        const period = cell.dataset.period;
+        const key = `${day}-${period}`;
+        originalData[key] = cell.innerHTML;
+        cell.contentEditable = 'true';
+        cell.classList.add('editable');
+      });
+      
+      editBtn.textContent = 'Exit Edit Mode';
+      saveBtn.style.display = 'inline-block';
+      cancelBtn.style.display = 'inline-block';
+    } else {
+      // Exit edit mode
+      cells.forEach(cell => {
+        cell.contentEditable = 'false';
+        cell.classList.remove('editable');
+      });
+      
+      editBtn.textContent = 'Edit Mode';
+      saveBtn.style.display = 'none';
+      cancelBtn.style.display = 'none';
+    }
+  }
+
+  function saveTimetable() {
+    const cells = document.querySelectorAll('.subject-cell');
+    const timetableData = {};
+    
+    cells.forEach(cell => {
+      const day = cell.dataset.day;
+      const period = cell.dataset.period;
+      const key = `${day}-${period}`;
+      timetableData[key] = cell.innerHTML;
+    });
+    
+    // Here you would send the data to your backend
+    console.log('Saving timetable:', timetableData);
+    
+    // For now, just save to localStorage
+    localStorage.setItem('timetableData', JSON.stringify(timetableData));
+    
+    alert('Timetable saved successfully!');
+    toggleEditMode();
+  }
+
+  function cancelEdit() {
+    const cells = document.querySelectorAll('.subject-cell');
+    
+    // Restore original data
+    cells.forEach(cell => {
+      const day = cell.dataset.day;
+      const period = cell.dataset.period;
+      const key = `${day}-${period}`;
+      cell.innerHTML = originalData[key];
+      cell.contentEditable = 'false';
+      cell.classList.remove('editable');
+    });
+    
+    toggleEditMode();
+  }
+
+  // Load saved timetable data
+  function loadTimetable() {
+    const savedData = localStorage.getItem('timetableData');
+    if (savedData) {
+      const timetableData = JSON.parse(savedData);
+      const cells = document.querySelectorAll('.subject-cell');
+      
+      cells.forEach(cell => {
+        const day = cell.dataset.day;
+        const period = cell.dataset.period;
+        const key = `${day}-${period}`;
+        if (timetableData[key]) {
+          cell.innerHTML = timetableData[key];
+        }
+      });
+    }
+  }
+
+  // Initialize everything when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+    checkUserRole();
+    loadTimetable();
+  });
+</script>
+
+</body>
+</html>

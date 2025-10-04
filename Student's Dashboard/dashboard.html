@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+  <title>Student's dashboard</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <script src="theme.js"></script>
+  <script>
+    // Fallback theme functions for dashboard
+    function toggleTheme() {
+      const body = document.body;
+      const themeIcon = document.querySelector('.theme-icon');
+      
+      console.log('Theme toggle clicked'); // Debug log
+      console.log('Current theme classes:', body.className); // Debug log
+      
+      if (body.classList.contains('light-theme')) {
+        body.classList.remove('light-theme');
+        if (themeIcon) themeIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+        console.log('Switched to dark theme'); // Debug log
+      } else {
+        body.classList.add('light-theme');
+        if (themeIcon) themeIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'light');
+        console.log('Switched to light theme'); // Debug log
+      }
+      
+      // Force a style recalculation
+      body.style.display = 'none';
+      body.offsetHeight; // Trigger reflow
+      body.style.display = '';
+    }
+
+    // Load theme on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.querySelector('.theme-icon');
+      
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        if (themeIcon) themeIcon.textContent = '☀️';
+      } else {
+        if (themeIcon) themeIcon.textContent = '🌙';
+      }
+    });
+  </script>
+  <style>
+    /* Ensure theme switching works for dashboard */
+    body {
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      transition: all 0.3s ease;
+    }
+
+    .light-theme body {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 25%, #e9ecef 50%, #dee2e6 75%, #ced4da 100%) !important;
+      background-size: 400% 400% !important;
+    }
+
+    /* Ensure light theme overrides any other background styles */
+    body.light-theme {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 25%, #134f8b 50%, #dee2e6 75%, #ced4da 100%) !important;
+      background-size: 400% 400% !important;
+    }
+
+    /* Light theme card gradients */
+    .light-theme .module-card {
+      background: linear-gradient(135deg, #ffffff4d 0%, #ffffff9a 50%, #ffffff59 50%);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .light-theme .module-card:hover {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .light-theme .subject-card {
+      background: linear-gradient(135deg, #ffffffad 0%, #f8f9fa88 50%, #e9ecefb6 100%);
+      box-shadow: 0 4px 15px rgba(100, 57, 57, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .light-theme .subject-card:hover {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .light-theme .leaderboard {
+      background: linear-gradient(135deg, #ffffff 0%, #2c72b8 50%, #a04cd8 100%);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .light-theme .quote-section {
+      background: linear-gradient(135deg, #fff5ba 0%, #ffd000 50%, #f2ff82 100%);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Responsive styles for dashboard */
+    @media (max-width: 768px) {
+      .datetime,
+      .StudentName,
+      .school-text,
+      .header-center h1,
+      .page-title {
+        display: none !important;
+      }
+
+      .module-card img {
+        width: 40px !important;
+        height: 40px !important;
+      }
+
+      .hamburger span {
+        width: 30px;
+        height: 4px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .module-card img {
+        width: 44px !important;
+        height: 44px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">School</span>
+  </div>
+
+  <!-- Hamburger Menu -->
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="datetime" id="datetime"></div>
+  
+  <div class="header-right">
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+    </button>
+
+    <!-- Profile Link -->
+      <span class="student-name">Student's Name</span>
+      <a href="profile.html" class="student-profile">
+      <img src="../assets/icons/profile.png"  loading="lazy">
+      </a>
+  </div>
+</header>
+
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
+  <a href="timetable.html" class="mobile-nav-item">Time Table</a>
+  <a href="schedule.html" class="mobile-nav-item">Schedule</a>
+  <a href="classgroup.html" class="mobile-nav-item">Class Group</a>
+  <a href="quiz.html" class="mobile-nav-item">Quiz</a>
+  <a href="learn.html" class="mobile-nav-item">Learn</a>
+  <a href="rewards.html" class="mobile-nav-item">Rewards</a>
+  <a href="leaderboard.html" class="mobile-nav-item">Leaderboard</a>
+  <a href="profile.html" class="mobile-nav-item">Profile</a>
+  <div class="mobile-nav-theme">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Dark Mode</span>
+    </button>
+  </div>
+</div>
+
+<div class="main-container">
+  <!-- Left Sidebar - Subjects -->
+  <div class="left-sidebar">
+    <div class="subject-cards">
+      <div class="subject-card">
+        <div class="subject-info">
+          <h3>Science</h3>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+        <div class="subject-icon">
+          <img src="../assets/icons/science icon.png" alt="Science" loading="lazy">
+        </div>
+      </div>
+      
+      <div class="subject-card">
+        <div class="subject-info">
+          <h3>Maths</h3>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+        <div class="subject-icon">
+          <img src="../assets/icons/math icon.png" alt="Maths" loading="lazy">
+        </div>
+      </div>
+      
+      <div class="subject-card">
+        <div class="subject-info">
+          <h3>Social</h3>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+        <div class="subject-icon">
+          <img src="../assets/icons/social icon.png" alt="Social" loading="lazy">
+        </div>
+      </div>
+      
+      <div class="subject-card">
+        <div class="subject-info">
+          <h3>English</h3>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+        <div class="subject-icon">
+          <img src="../assets/icons/english icon.png" alt="English" loading="lazy">
+        </div>
+      </div>
+      
+      <div class="subject-card">
+        <div class="subject-info">
+          <h3>Hindi</h3>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+        <div class="subject-icon">
+          <img src="../assets/icons/hindi icon.png" alt="Hindi" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Center Section -->
+  <div class="center-section">
+    <!-- Motivational Quote -->
+    <div class="quote-section">
+      <div class="quote-text">All our dreams can come true, if we have the courage to pursue them.</div>
+    </div>
+    
+    <!-- Module Grid -->
+    <div class="module-grid">
+      <a href="timetable.html" class="module-card">
+        <img src="../assets/icons/time table.png" alt="Time Table" loading="lazy">
+        <h3>Time Table</h3>
+      </a>
+      <a href="schedule.html" class="module-card">
+        <img src="../assets/icons/calendar.png" alt="Calendar" loading="lazy">
+        <h3>Schools Schedule</h3>
+      </a>
+      <a href="classgroup.html" class="module-card">
+        <img src="../assets/icons/chat icon.png" alt="Chat" loading="lazy">
+        <h3>Class Group</h3>
+      </a>
+      <a href="quiz.html" class="module-card">
+        <img src="../assets/icons/quiz icon.png" alt="Quiz" loading="lazy">
+        <h3>Quiz</h3>
+      </a>
+      <a href="learn.html" class="module-card">
+        <img src="../assets/icons/learn teach icon.png" alt="Study" loading="lazy">
+        <h3>Learn</h3>
+      </a>
+      <a href="rewards.html" class="module-card">
+        <img src="../assets/icons/rewards icon.png" alt="Rewards" loading="lazy">
+        <h3>Rewards</h3>
+      </a>
+    </div>
+  </div>
+
+  <!-- Right Sidebar - Leaderboard -->
+  <div class="right-sidebar">
+    <div class="leaderboard">
+      <h3>Leader Board</h3>
+      <div class="rank-1">
+        <div class="rank-badge">1</div>
+        <span class="rank-name">XXXXXXXXXXXXXXXXXXX</span>
+      </div>
+      <div class="rank-list">
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-dot"></div>
+          <span>XXXXXXXXXXXXXXXXXXX</span>
+        </div>
+      </div>
+      <a href="leaderboard.html" class="more-details">More Details</a>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Section - Assessments -->
+<div class="bottom-section">
+  <div class="progress-container">
+    <div class="assessment-buttons">
+      <button class="assessment-btn fa" data-progress="16.67">FA 1</button>
+      <button class="assessment-btn fa" data-progress="33.33">FA 2</button>
+      <button class="assessment-btn sa" data-progress="50">SA 1</button>
+      <button class="assessment-btn fa" data-progress="66.67">FA 3</button>
+      <button class="assessment-btn fa" data-progress="83.33">FA 4</button>
+      <button class="assessment-btn sa" data-progress="100">SA 2</button>
+    </div>
+    <div class="progress-bar-large">
+      <div class="progress-fill-large"></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  // Theme toggle functionality
+  function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (body.classList.contains('light-theme')) {
+      body.classList.remove('light-theme');
+      themeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Load saved theme
+  function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+    } else {
+      themeIcon.textContent = '🌙';
+    }
+  }
+
+  // Date and time functions
+  function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  function formatTime(date) {
+    return date.toLocaleTimeString(undefined, {
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+  }
+
+  function updateDateTime() {
+    const now = new Date();
+    document.getElementById('datetime').textContent =
+      `${formatDate(now)} | ${formatTime(now)}`;
+  }
+
+  // Initialize everything when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    // Wire up assessment buttons to animate the large progress bar
+    const progressFillLarge = document.querySelector('.progress-fill-large');
+    document.querySelectorAll('.assessment-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pct = btn.getAttribute('data-progress');
+        progressFillLarge.style.width = pct + '%';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

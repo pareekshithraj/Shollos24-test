@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Hub - Leader Board</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="leaderboard.css" />
+</head>
+<body>
+
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">School</span>
+  </div>
+  <div class="header-center">
+    <h1>Leader Board</h1>
+  </div>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+    </button>
+    <div class="user-info">
+      <span id="userRole">Student</span>
+      <a href="profile.html" class="student-profile"><img src="../assets/icons/profile.png" alt="User Profile" loading="lazy"></a>
+    </div>
+  </div>
+</header>
+
+<div class="leaderboard-container">
+  <div class="leaderboard-header">
+    <div class="header-info">
+      <h2>Class Rankings</h2>
+    </div>
+    <div class="filter-options">
+      <select class="filter-select" id="timeFilter">
+        <option value="all">All Time</option>
+        <option value="month">This Month</option>
+        <option value="week">This Week</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="podium-section">
+    <div class="podium">
+      <div class="podium-place second">
+        <div class="podium-rank">2</div>
+        <div class="podium-avatar">
+          <img src="../assets/icons/profile.png" alt="Student" loading="lazy">
+        </div>
+        <div class="podium-info">
+          <h3>Sarah Wilson</h3>
+          <p>1,180 points</p>
+        </div>
+      </div>
+      
+      <div class="podium-place first">
+        <div class="podium-rank">1</div>
+        <div class="podium-avatar">
+          <img src="../assets/icons/profile.png" alt="Student" loading="lazy">
+          <div class="crown">👑</div>
+        </div>
+        <div class="podium-info">
+          <h3>Alex Johnson</h3>
+          <p>1,250 points</p>
+        </div>
+      </div>
+      
+      <div class="podium-place third">
+        <div class="podium-rank">3</div>
+        <div class="podium-avatar">
+          <img src="../assets/icons/profile.png" alt="Student" loading="lazy">
+        </div>
+        <div class="podium-info">
+          <h3>Mike Davis</h3>
+          <p>1,120 points</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="leaderboard-list">
+    <div class="list-header">
+      <h3>Complete Rankings</h3>
+      <div class="list-stats">
+        <span class="total-students">25 students</span>
+        <span class="average-points">Avg: 650 pts</span>
+      </div>
+    </div>
+    
+    <div class="rankings-list">
+      <div class="ranking-item">
+        <div class="rank-number">4</div>
+        <img src="../assets/icons/profile.png" alt="Student" class="student-avatar" loading="lazy">
+        <div class="student-details">
+          <h4>Emma Brown</h4>
+          <p>Class 10A • Roll: 10A-012</p>
+        </div>
+        <div class="student-stats">
+          <div class="stat">
+            <span class="stat-label">Points:</span>
+            <span class="stat-value">1,050</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Level:</span>
+            <span class="stat-value">12</span>
+          </div>
+        </div>
+        <div class="rank-change up">
+          <span class="change-icon">↗</span>
+          <span class="change-text">+2</span>
+        </div>
+      </div>
+      
+      <div class="ranking-item">
+        <div class="rank-number">5</div>
+        <img src="../assets/icons/profile.png" alt="Student" class="student-avatar" loading="lazy">
+        <div class="student-details">
+          <h4>David Lee</h4>
+          <p>Class 10A • Roll: 10A-008</p>
+        </div>
+        <div class="student-stats">
+          <div class="stat">
+            <span class="stat-label">Points:</span>
+            <span class="stat-value">980</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Level:</span>
+            <span class="stat-value">11</span>
+          </div>
+        </div>
+        <div class="rank-change down">
+          <span class="change-icon">↘</span>
+          <span class="change-text">-1</span>
+        </div>
+      </div>
+      
+      <div class="ranking-item">
+        <div class="rank-number">6</div>
+        <img src="../assets/icons/profile.png" alt="Student" class="student-avatar" loading="lazy">
+        <div class="student-details">
+          <h4>Lisa Chen</h4>
+          <p>Class 10A • Roll: 10A-020</p>
+        </div>
+        <div class="student-stats">
+          <div class="stat">
+            <span class="stat-label">Points:</span>
+            <span class="stat-value">920</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Level:</span>
+            <span class="stat-value">10</span>
+          </div>
+        </div>
+        <div class="rank-change up">
+          <span class="change-icon">↗</span>
+          <span class="change-text">+3</span>
+        </div>
+      </div>
+      
+      <div class="ranking-item">
+        <div class="rank-number">7</div>
+        <img src="../assets/icons/profile.png" alt="Student" class="student-avatar" loading="lazy">
+        <div class="student-details">
+          <h4>Ryan Miller</h4>
+          <p>Class 10A • Roll: 10A-005</p>
+        </div>
+        <div class="student-stats">
+          <div class="stat">
+            <span class="stat-label">Points:</span>
+            <span class="stat-value">880</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Level:</span>
+            <span class="stat-value">10</span>
+          </div>
+        </div>
+        <div class="rank-change">
+          <span class="change-text">-</span>
+        </div>
+      </div>
+      
+      <div class="ranking-item">
+        <div class="rank-number">8</div>
+        <img src="../assets/icons/profile.png" alt="Student" class="student-avatar" loading="lazy">
+        <div class="student-details">
+          <h4>Sophie Taylor</h4>
+          <p>Class 10A • Roll: 10A-018</p>
+        </div>
+        <div class="student-stats">
+          <div class="stat">
+            <span class="stat-label">Points:</span>
+            <span class="stat-value">850</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Level:</span>
+            <span class="stat-value">9</span>
+          </div>
+        </div>
+        <div class="rank-change up">
+          <span class="change-icon">↗</span>
+          <span class="change-text">+1</span>
+        </div>
+      </div>
+      
+      <div class="ranking-item current-user">
+        <div class="rank-number">15</div>
+        <img src="../assets/icons/profile.png" alt="You" class="student-avatar" loading="lazy">
+        <div class="student-details">
+          <h4>You</h4>
+          <p>Class 10A • Roll: 10A-015</p>
+        </div>
+        <div class="student-stats">
+          <div class="stat">
+            <span class="stat-label">Points:</span>
+            <span class="stat-value">450</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Level:</span>
+            <span class="stat-value">5</span>
+          </div>
+        </div>
+        <div class="rank-change up">
+          <span class="change-icon">↗</span>
+          <span class="change-text">+2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="achievement-highlights">
+    <h3>Recent Achievements</h3>
+    <div class="achievements-grid">
+      <div class="achievement-highlight">
+        <div class="achievement-icon">🏆</div>
+        <div class="achievement-info">
+          <h4>Perfect Score</h4>
+          <p>Alex Johnson achieved 100% on Math Quiz</p>
+        </div>
+      </div>
+      
+      <div class="achievement-highlight">
+        <div class="achievement-icon">📚</div>
+        <div class="achievement-info">
+          <h4>Bookworm</h4>
+          <p>Sarah Wilson completed 10 study materials</p>
+        </div>
+      </div>
+      
+      <div class="achievement-highlight">
+        <div class="achievement-icon">🎯</div>
+        <div class="achievement-info">
+          <h4>Streak Master</h4>
+          <p>Mike Davis studied for 7 days in a row</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+ 
+<script>
+  // Theme toggle functionality
+  function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (body.classList.contains('light-theme')) {
+      body.classList.remove('light-theme');
+      themeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Load saved theme
+  function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+    } else {
+      themeIcon.textContent = '🌙';
+    }
+  }
+
+  // Filter functionality
+  document.getElementById('timeFilter').addEventListener('change', function() {
+    const filter = this.value;
+    // Here you would filter the leaderboard data based on the selected time period
+    console.log('Filtering by:', filter);
+  });
+
+  // Initialize everything when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+  });
+</script>
+
+</body>
+</html>

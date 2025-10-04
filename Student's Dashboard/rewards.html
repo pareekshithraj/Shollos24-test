@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Hub - Rewards</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="rewards.css" />
+</head>
+<body>
+
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">School</span>
+  </div>
+  <div class="header-center">
+    <h1>Rewards</h1>
+  </div>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+    </button>
+    <div class="user-info">
+      <span id="userRole">Student</span>
+      <a href="profile.html" class="student-profile"><img src="../assets/icons/profile.png" alt="User Profile" loading="lazy"></a>
+    </div>
+  </div>
+</header>
+
+<div class="rewards-container">
+  <div class="rewards-main">
+    <div class="progress-section">
+      <div class="progress-circle">
+        <div class="progress-ring">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-content">
+          <img src="../assets/icons/coin.png" alt="Coin" class="coin-icon" loading="lazy">
+          <span class="progress-number" id="progressNumber">0</span>
+        </div>
+      </div>
+      <div class="progress-info">
+        <h3>Reward Progress</h3>
+        <p>Complete tasks to earn rewards and unlock achievements!</p>
+        <div class="progress-stats">
+          <div class="stat-item">
+            <span class="stat-label">Points Earned:</span>
+            <span class="stat-value" id="pointsEarned">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Level:</span>
+            <span class="stat-value" id="currentLevel">1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="achievements-section">
+      <h3>Achievements</h3>
+      <div class="achievements-grid">
+        <div class="achievement-card locked">
+          <div class="achievement-icon">🏆</div>
+          <h4>First Quiz</h4>
+          <p>Complete your first quiz</p>
+          <div class="achievement-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <span class="progress-text">0/1</span>
+          </div>
+        </div>
+        
+        <div class="achievement-card locked">
+          <div class="achievement-icon">📚</div>
+          <h4>Bookworm</h4>
+          <p>Read 10 study materials</p>
+          <div class="achievement-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <span class="progress-text">0/10</span>
+          </div>
+        </div>
+        
+        <div class="achievement-card locked">
+          <div class="achievement-icon">⭐</div>
+          <h4>Perfect Score</h4>
+          <p>Get 100% on any quiz</p>
+          <div class="achievement-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <span class="progress-text">0/1</span>
+          </div>
+        </div>
+        
+        <div class="achievement-card locked">
+          <div class="achievement-icon">🎯</div>
+          <h4>Streak Master</h4>
+          <p>Study for 7 days in a row</p>
+          <div class="achievement-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <span class="progress-text">0/7</span>
+          </div>
+        </div>
+        
+        <div class="achievement-card locked">
+          <div class="achievement-icon">💬</div>
+          <h4>Social Learner</h4>
+          <p>Participate in 5 class discussions</p>
+          <div class="achievement-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <span class="progress-text">0/5</span>
+          </div>
+        </div>
+        
+        <div class="achievement-card locked">
+          <div class="achievement-icon">🚀</div>
+          <h4>Speed Learner</h4>
+          <p>Complete a quiz in under 5 minutes</p>
+          <div class="achievement-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <span class="progress-text">0/1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="rewards-sidebar">
+    <div class="leaderboard-section">
+      <h3>Top Performers</h3>
+      <div class="leaderboard-list">
+        <div class="leaderboard-item">
+          <div class="rank">1</div>
+          <img src="../assets/icons/profile.png" alt="Student" class="student-avatar" loading="lazy">
+          <div class="student-info">
+            <span class="student-name">Alex Johnson</span>
+            <span class="student-points">1,250 pts</span>
+          </div>
+        </div>
+        
+        <div class="leaderboard-item">
+          <div class="rank">2</div>
+          <img src="../assets/icons/profile.png" alt="Student" class="student-avatar" loading="lazy">
+          <div class="student-info">
+            <span class="student-name">Sarah Wilson</span>
+            <span class="student-points">1,180 pts</span>
+          </div>
+        </div>
+        
+        <div class="leaderboard-item">
+          <div class="rank">3</div>
+          <img src="../assets/icons/profile.png" alt="Student" class="student-avatar" loading="lazy">
+          <div class="student-info">
+            <span class="student-name">Mike Davis</span>
+            <span class="student-points">1,120 pts</span>
+          </div>
+        </div>
+        
+        <div class="leaderboard-item current-user">
+          <div class="rank">15</div>
+          <img src="../assets/icons/profile.png" alt="You" class="student-avatar" loading="lazy">
+          <div class="student-info">
+            <span class="student-name">You</span>
+            <span class="student-points">450 pts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="recent-activity">
+      <h3>Recent Activity</h3>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-icon">📝</div>
+          <div class="activity-content">
+            <span class="activity-text">Completed Math Quiz</span>
+            <span class="activity-points">+50 pts</span>
+          </div>
+        </div>
+        
+        <div class="activity-item">
+          <div class="activity-icon">📚</div>
+          <div class="activity-content">
+            <span class="activity-text">Read Science Chapter</span>
+            <span class="activity-points">+25 pts</span>
+          </div>
+        </div>
+        
+        <div class="activity-item">
+          <div class="activity-icon">💬</div>
+          <div class="activity-content">
+            <span class="activity-text">Participated in Discussion</span>
+            <span class="activity-points">+15 pts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+
+
+<script>
+  // Theme toggle functionality
+  function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (body.classList.contains('light-theme')) {
+      body.classList.remove('light-theme');
+      themeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Load saved theme
+  function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+    } else {
+      themeIcon.textContent = '🌙';
+    }
+  }
+
+  // Rewards functionality
+  function updateProgress() {
+    const progressNumber = document.getElementById('progressNumber');
+    const progressFill = document.getElementById('progressFill');
+    const pointsEarned = document.getElementById('pointsEarned');
+    const currentLevel = document.getElementById('currentLevel');
+    
+    // Get user progress from localStorage or set default
+    const userProgress = JSON.parse(localStorage.getItem('userProgress')) || {
+      points: 0,
+      level: 1,
+      achievements: {}
+    };
+    
+    // Update display
+    progressNumber.textContent = userProgress.points;
+    pointsEarned.textContent = userProgress.points;
+    currentLevel.textContent = userProgress.level;
+    
+    // Calculate progress percentage (assuming 1000 points per level)
+    const progressPercentage = (userProgress.points % 1000) / 10;
+    progressFill.style.strokeDasharray = `${progressPercentage * 25.13} 251.3`;
+    
+    // Update achievements
+    updateAchievements(userProgress.achievements);
+  }
+
+  function updateAchievements(achievements) {
+    const achievementCards = document.querySelectorAll('.achievement-card');
+    
+    achievementCards.forEach(card => {
+      const achievementName = card.querySelector('h4').textContent.toLowerCase().replace(' ', '');
+      
+      if (achievements[achievementName]) {
+        card.classList.remove('locked');
+        card.classList.add('unlocked');
+        
+        const progress = achievements[achievementName].progress || 0;
+        const target = achievements[achievementName].target || 1;
+        const progressBar = card.querySelector('.progress-fill');
+        const progressText = card.querySelector('.progress-text');
+        
+        const percentage = (progress / target) * 100;
+        progressBar.style.width = `${Math.min(percentage, 100)}%`;
+        progressText.textContent = `${progress}/${target}`;
+        
+        if (progress >= target) {
+          card.classList.add('completed');
+        }
+      }
+    });
+  }
+
+  // Simulate earning points (for demo purposes)
+  function simulateActivity() {
+    const activities = [
+      { text: 'Completed Math Quiz', points: 50, icon: '📝' },
+      { text: 'Read Science Chapter', points: 25, icon: '📚' },
+      { text: 'Participated in Discussion', points: 15, icon: '💬' },
+      { text: 'Perfect Score on English Quiz', points: 100, icon: '⭐' },
+      { text: 'Completed Daily Challenge', points: 30, icon: '🎯' }
+    ];
+    
+    const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+    
+    // Update user progress
+    const userProgress = JSON.parse(localStorage.getItem('userProgress')) || {
+      points: 0,
+      level: 1,
+      achievements: {}
+    };
+    
+    userProgress.points += randomActivity.points;
+    userProgress.level = Math.floor(userProgress.points / 1000) + 1;
+    
+    localStorage.setItem('userProgress', JSON.stringify(userProgress));
+    
+    // Update display
+    updateProgress();
+    
+    // Show notification
+    showNotification(randomActivity);
+  }
+
+  function showNotification(activity) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerHTML = `
+      <div class="notification-content">
+        <span class="notification-icon">${activity.icon}</span>
+        <div class="notification-text">
+          <span class="notification-title">Reward Earned!</span>
+          <span class="notification-message">${activity.text} (+${activity.points} pts)</span>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+      notification.classList.remove('show');
+      setTimeout(() => notification.remove(), 300);
+    }, 3000);
+  }
+
+  // Initialize everything when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+    updateProgress();
+    
+    // Simulate activity every 10 seconds (for demo)
+    setInterval(simulateActivity, 10000);
+  });
+</script>
+
+</body>
+</html>

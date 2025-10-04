@@ -1,0 +1,407 @@
+/* Timetable Specific Styles */
+
+/* Header adjustments for timetable page */
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-center h1 {
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.user-info img {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-primary);
+}
+
+/* Timetable Container */
+.timetable-container {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+  background-color: var(--bg-primary);
+}
+
+/* Timetable Grid */
+.timetable-grid {
+  display: grid;
+  grid-template-columns: 120px repeat(8, 150px);
+  grid-template-rows: 50px repeat(6, 80px);
+  gap: 2px;
+  background-color: var(--border-color);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px var(--shadow-color);
+  max-width: 1400px;
+  width: 100%;
+}
+
+/* Grid Header */
+.grid-header {
+  display: contents;
+}
+
+.day-header {
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  border: none;
+}
+
+.period-header {
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+/* Day Rows */
+.day-row {
+  display: contents;
+}
+
+.day-cell {
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+  padding: 10px;
+}
+
+/* Subject Cells */
+.subject-cell {
+  background-color: var(--bg-tertiary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  position: relative;
+  min-height: 80px;
+}
+
+.subject-cell:hover {
+  background-color: var(--bg-secondary);
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.subject-cell.editable {
+  background-color: rgba(74, 158, 255, 0.1);
+  border: 2px solid var(--accent-primary);
+  cursor: text;
+}
+
+.subject-cell.editable:focus {
+  outline: none;
+  background-color: rgba(74, 158, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.3);
+}
+
+.subject-text {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.teacher-text {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: center;
+  font-style: italic;
+}
+
+/* Edit Controls */
+.edit-controls {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.edit-btn, .save-btn, .cancel-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.edit-btn {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.save-btn {
+  background: #28a745;
+  color: white;
+}
+
+.cancel-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.edit-btn:hover, .save-btn:hover, .cancel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+/* Navigation */
+.navigation {
+  position: fixed;
+  top: 90px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  border: 1px solid var(--border-color);
+}
+
+.nav-btn:hover {
+  background: var(--accent-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+/* Light Theme Adjustments */
+.light-theme .timetable-grid {
+  background-color: #e0e0e0;
+  border-color: #d0d0d0;
+}
+
+.light-theme .day-header,
+.light-theme .period-header,
+.light-theme .day-cell {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.light-theme .subject-cell {
+  background-color: var(--bg-tertiary);
+  border-color: #d0d0d0;
+}
+
+.light-theme .subject-cell:hover {
+  background-color: var(--bg-secondary);
+}
+
+.light-theme .subject-cell.editable {
+  background-color: rgba(0, 123, 255, 0.1);
+  border-color: var(--accent-primary);
+}
+
+.light-theme .subject-cell.editable:focus {
+  background-color: rgba(0, 123, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .timetable-grid {
+    grid-template-columns: 100px repeat(8, 120px);
+    grid-template-rows: 45px repeat(6, 70px);
+  }
+  
+  .subject-text {
+    font-size: 12px;
+  }
+  
+  .teacher-text {
+    font-size: 10px;
+  }
+  
+  .day-cell {
+    font-size: 12px;
+  }
+  
+  .period-header {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .timetable-container {
+    padding: 20px;
+  }
+  
+  .timetable-grid {
+    grid-template-columns: 80px repeat(8, 100px);
+    grid-template-rows: 40px repeat(6, 60px);
+  }
+  
+  .subject-text {
+    font-size: 11px;
+  }
+  
+  .teacher-text {
+    font-size: 9px;
+  }
+  
+  .day-cell {
+    font-size: 11px;
+  }
+  
+  .period-header {
+    font-size: 12px;
+  }
+  
+  .edit-controls {
+    top: 80px;
+    right: 15px;
+  }
+  
+  .navigation {
+    top: 80px;
+    left: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timetable-container {
+    padding: 15px;
+    overflow-x: auto;
+  }
+  
+  .timetable-grid {
+    grid-template-columns: 70px repeat(8, 90px);
+    grid-template-rows: 35px repeat(6, 55px);
+    min-width: 800px;
+  }
+  
+  .subject-text {
+    font-size: 10px;
+  }
+  
+  .teacher-text {
+    font-size: 8px;
+  }
+  
+  .day-cell {
+    font-size: 10px;
+  }
+  
+  .period-header {
+    font-size: 11px;
+  }
+  
+  .header-center h1 {
+    font-size: 20px;
+  }
+  
+  .edit-controls {
+    position: relative;
+    top: auto;
+    right: auto;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .navigation {
+    position: relative;
+    top: auto;
+    left: auto;
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .edit-btn, .save-btn, .cancel-btn, .nav-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timetable-grid {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Special styling for different subject types */
+.subject-cell[data-subject="lunch"] {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: var(--text-primary);
+}
+
+.subject-cell[data-subject="pe"] {
+  background: linear-gradient(135deg, #28a745 0%, #34ce57 100%);
+  color: white;
+}
+
+.subject-cell[data-subject="art"] {
+  background: linear-gradient(135deg, #e83e8c 0%, #f06292 100%);
+  color: white;
+}
+
+.subject-cell[data-subject="music"] {
+  background: linear-gradient(135deg, #6f42c1 0%, #8e44ad 100%);
+  color: white;
+}
+
+.subject-cell[data-subject="library"] {
+  background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%);
+  color: white;
+}
+
+.subject-cell[data-subject="computer"] {
+  background: linear-gradient(135deg, #6c757d 0%, #868e96 100%);
+  color: white;
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="assets/icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>Interactive Whiteboard</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #toolbar {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            z-index: 10;
+            max-width: 90%;
+        }
+
+        .tool-button {
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .tool-button:hover {
+            transform: scale(1.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-button i {
+            font-size: 18px;
+            color: #2575fc;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .tool-button:hover i {
+            color: #6a11cb;
+        }
+
+        .color-picker {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            padding: 0;
+            appearance: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .color-picker::-webkit-color-swatch {
+            border: none;
+            border-radius: 50%;
+        }
+
+        .color-picker:hover {
+            transform: scale(1.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #canvas {
+            display: block;
+            background-color: white;
+            cursor: crosshair;
+        }
+        #dateTime {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            color: #333;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 5px 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        #dateTime img{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Live Date and Time Display -->
+    <div id="dateTime">
+        <img src="/assets/icon-transbg.png" alt="">
+    </div>
+
+    <!-- Canvas -->
+    <canvas id="canvas"></canvas>
+
+    <!-- Toolbar -->
+    <div id="toolbar">
+        <button class="tool-button" id="freehand"><i class="fas fa-pencil-alt"></i></button>
+        <button  class="tool-button" id="rectangle"><i class="fas fa-square"></i></button>
+        <button class="tool-button" id="erase"><i class="fas fa-eraser"></i></button>
+        <input type="color" id="drawingColor" class="color-picker" value="#000000">
+        <input type="range" id="brushSize" value="5" min="1" max="20">
+        <button class="tool-button" id="clearCanvas">Clear</button>
+        <button class="tool-button" id="saveCanvas">Save</button>
+    </div>
+
+    <!-- External Scripts -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const freehandButton = document.getElementById('freehand');
+        const rectangleButton = document.getElementById('rectangle');
+        const eraseButton = document.getElementById('erase');
+        const drawingColorInput = document.getElementById('drawingColor');
+        const brushSizeInput = document.getElementById('brushSize');
+        const clearCanvasButton = document.getElementById('clearCanvas');
+        const saveCanvasButton = document.getElementById('saveCanvas');
+        const dateTimeDisplay = document.getElementById('dateTime');
+
+        let drawing = false;
+        let startX, startY, endX, endY;
+        let tool = 'freehand';
+        let currentBrushSize = brushSizeInput.value;
+        let currentColor = drawingColorInput.value;
+        let shapes = [];
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function setCanvasBackgroundColor() {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function redrawCanvas() {
+            setCanvasBackgroundColor();
+            shapes.forEach(shape => {
+                ctx.strokeStyle = shape.color;
+                ctx.lineWidth = shape.size;
+                if (shape.type === 'rectangle') {
+                    ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
+                } else if (shape.type === 'freehand') {
+                    ctx.beginPath();
+                    shape.path.forEach((point, index) => {
+                        if (index === 0) {
+                            ctx.moveTo(point.x, point.y);
+                        } else {
+                            ctx.lineTo(point.x, point.y);
+                        }
+                    });
+                    ctx.stroke();
+                }
+            });
+        }
+
+        setCanvasBackgroundColor();
+
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            if (tool === 'freehand') {
+                shapes.push({ type: 'freehand', path: [{ x: startX, y: startY }], color: currentColor, size: currentBrushSize });
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!drawing) return;
+
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            if (tool === 'freehand') {
+                const currentPath = shapes[shapes.length - 1].path;
+                currentPath.push({ x: mouseX, y: mouseY });
+                ctx.lineWidth = currentBrushSize;
+                ctx.strokeStyle = currentColor;
+                ctx.lineTo(mouseX, mouseY);
+                ctx.stroke();
+            } else if (tool === 'rectangle') {
+                endX = mouseX;
+                endY = mouseY;
+                redrawCanvas();
+                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = currentBrushSize;
+                ctx.strokeRect(startX, startY, endX - startX, endY - startY);
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+            if (tool === 'rectangle') {
+                shapes.push({
+                    type: 'rectangle',
+                    x: startX,
+                    y: startY,
+                    width: endX - startX,
+                    height: endY - startY,
+                    color: currentColor,
+                    size: currentBrushSize
+                });
+            }
+        });
+
+        freehandButton.addEventListener('click', () => tool = 'freehand');
+        rectangleButton.addEventListener('click', () => tool = 'rectangle');
+        eraseButton.addEventListener('click', () => tool = 'erase');
+
+        drawingColorInput.addEventListener('input', (e) => currentColor = e.target.value);
+        brushSizeInput.addEventListener('input', (e) => currentBrushSize = e.target.value);
+
+        clearCanvasButton.addEventListener('click', () => {
+            shapes = [];
+            setCanvasBackgroundColor();
+        });
+
+        saveCanvasButton.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'canvas.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+
+        // Live Date and Time
+        function updateDateTime() {
+            const now = new Date();
+            const formattedDateTime = now.toLocaleString(); // Formats the date and time
+            dateTimeDisplay.textContent = formattedDateTime;
+        }
+
+        setInterval(updateDateTime, 1000); // Update every second
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            redrawCanvas();
+        });
+
+        setCanvasBackgroundColor();
+    </script>
+</body>
+</html>

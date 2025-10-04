@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Hub - Class Group</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="classgroup.css" />
+</head>
+<body>
+
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">School</span>
+  </div>
+  <div class="header-center">
+    <h1>Class Group</h1>
+  </div>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+    </button>
+    <div class="user-info">
+      <span id="userRole">Student</span>
+      <a href="profile.html" class="student-profile"><img src="../assets/icons/profile.png" alt="User Profile" loading="lazy"></a>
+    </div>
+  </div>
+</header>
+
+<div class="chat-container">
+  <div class="chat-sidebar">
+    <div class="sidebar-header">
+      <h3>Class Members</h3>
+      <span class="member-count">25 members</span>
+    </div>
+    
+    <div class="member-list">
+      <div class="member-item active">
+        <img src="../assets/icons/profile.png" alt="Student" loading="lazy">
+        <div class="member-info">
+          <span class="member-name">You</span>
+          <span class="member-status">Online</span>
+        </div>
+      </div>
+      
+      <div class="member-item">
+        <img src="../assets/icons/profile.png" alt="Student" loading="lazy">
+        <div class="member-info">
+          <span class="member-name">Alex Johnson</span>
+          <span class="member-status">Online</span>
+        </div>
+      </div>
+      
+      <div class="member-item">
+        <img src="../assets/icons/profile.png" alt="Student" loading="lazy">
+        <div class="member-info">
+          <span class="member-name">Sarah Wilson</span>
+          <span class="member-status">Online</span>
+        </div>
+      </div>
+      
+      <div class="member-item">
+        <img src="../assets/icons/profile.png" alt="Student" loading="lazy">
+        <div class="member-info">
+          <span class="member-name">Mike Davis</span>
+          <span class="member-status">Away</span>
+        </div>
+      </div>
+      
+      <div class="member-item">
+        <img src="../assets/icons/profile.png" alt="Student" loading="lazy">
+        <div class="member-info">
+          <span class="member-name">Emma Brown</span>
+          <span class="member-status">Online</span>
+        </div>
+      </div>
+      
+      <div class="member-item">
+        <img src="assets/icons/profile.png" alt="Student">
+        <div class="member-info">
+          <span class="member-name">David Lee</span>
+          <span class="member-status">Offline</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="chat-main">
+    <div class="chat-header">
+      <h3>Class Discussion</h3>
+      <div class="chat-actions">
+        <button class="action-btn" title="Settings">⚙️</button>
+        <button class="action-btn" title="Notifications">🔔</button>
+      </div>
+    </div>
+    
+    <div class="chat-messages" id="chatMessages">
+      <div class="message">
+        <img src="../assets/icons/profile.png" alt="Student" class="message-avatar" loading="lazy">
+        <div class="message-content">
+          <div class="message-header">
+            <span class="sender-name">Alex Johnson</span>
+            <span class="message-time">10:30 AM</span>
+          </div>
+          <div class="message-text">Hey everyone! Did anyone understand the math homework from yesterday?</div>
+        </div>
+      </div>
+      
+      <div class="message">
+        <img src="../assets/icons/profile.png" alt="Student" class="message-avatar" loading="lazy">
+        <div class="message-content">
+          <div class="message-header">
+            <span class="sender-name">Sarah Wilson</span>
+            <span class="message-time">10:32 AM</span>
+          </div>
+          <div class="message-text">I found it pretty challenging. The quadratic equations were tricky!</div>
+        </div>
+      </div>
+      
+      <div class="message">
+        <img src="../assets/icons/profile.png" alt="Student" class="message-avatar" loading="lazy">
+        <div class="message-content">
+          <div class="message-header">
+            <span class="sender-name">Mike Davis</span>
+            <span class="message-time">10:35 AM</span>
+          </div>
+          <div class="message-text">I can help! I'll share my solution in a bit.</div>
+        </div>
+      </div>
+      
+      <div class="message your-message">
+        <div class="message-content">
+          <div class="message-header">
+            <span class="sender-name">You</span>
+            <span class="message-time">10:37 AM</span>
+          </div>
+          <div class="message-text">Thanks Mike! That would be really helpful.</div>
+        </div>
+        <img src="../assets/icons/profile.png" alt="You" class="message-avatar" loading="lazy">
+      </div>
+    </div>
+    
+    <div class="chat-input">
+      <div class="input-container">
+        <input type="text" id="messageInput" placeholder="Type your message..." maxlength="500">
+        <button class="send-btn" onclick="sendMessage()">Send</button>
+      </div>
+      <div class="input-actions">
+        <button class="attachment-btn" title="Attach File">📎</button>
+        <button class="emoji-btn" title="Emoji">😊</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+
+
+<script>
+  // Theme toggle functionality
+  function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (body.classList.contains('light-theme')) {
+      body.classList.remove('light-theme');
+      themeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Load saved theme
+  function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+    } else {
+      themeIcon.textContent = '🌙';
+    }
+  }
+
+  // Chat functionality (user messages only)
+  function sendMessage() {
+    const input = document.getElementById('messageInput');
+    const message = input.value.trim();
+    
+    if (message) {
+      addMessage('You', message, true);
+      input.value = '';
+    }
+  }
+
+  function addMessage(sender, text, isYourMessage) {
+    const messagesContainer = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isYourMessage ? 'your-message' : ''}`;
+    
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    
+    messageDiv.innerHTML = `
+      ${!isYourMessage ? '<img src=\"../assets/icons/profile.png\" alt=\"Student\" class=\"message-avatar\" loading=\"lazy\">' : ''}
+      <div class="message-content">
+        <div class="message-header">
+          <span class="sender-name">${sender}</span>
+          <span class="message-time">${timeString}</span>
+        </div>
+        <div class="message-text">${text}</div>
+      </div>
+      ${isYourMessage ? '<img src=\"../assets/icons/profile.png\" alt=\"You\" class=\"message-avatar\" loading=\"lazy\">' : ''}
+    `;
+    
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  // Allow sending message with Enter key
+  document.getElementById('messageInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
+
+  // Initialize everything when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+    
+    // Scroll to bottom of messages
+    const messagesContainer = document.getElementById('chatMessages');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  });
+</script>
+
+</body>
+</html>

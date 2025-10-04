@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Schools24 | Learn</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="theme.js"></script>
+  <style>
+   
+
+    /* Learn Section */
+    .learn-container {
+      display: flex;
+      height: calc(100vh - 50px);
+    }
+
+    /* Left Sidebar */
+    .subjects {
+      width: 200px;
+      padding: 20px;
+      background: #f8f8f8;
+    }
+
+    .subject-card {
+      background: #222;
+      color: #fff;
+      margin-bottom: 12px;
+      padding: 12px 15px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .subject-card:hover,
+    .subject-card.active {
+      background: #444;
+    }
+
+    /* Right Column */
+    .resources {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .resource-top {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .resource-card {
+      flex: 1;
+      background: #222;
+      color: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .resource-card:hover,
+    .resource-card.active {
+      background: #444;
+    }
+
+    /* Bottom row content */
+    .resource-bottom {
+      flex: 1;
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .download-item {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .download-item button {
+      background: #0077ff;
+      border: none;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .unavailable {
+      text-align: center;
+      font-size: 18px;
+      color: #888;
+      padding-top: 40px;
+    }
+
+    /* Light theme card gradients with glossy effect for learn page */
+    .light-theme .subject-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.8) 50%, rgba(233, 236, 239, 0.9) 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 
+                  0 2px 8px rgba(255, 255, 255, 0.3) inset,
+                  0 1px 0 rgba(255, 255, 255, 0.5) inset;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      color: #333;
+    }
+
+    .light-theme .subject-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .light-theme .subject-card:hover {
+      background: linear-gradient(135deg, rgba(248, 249, 250, 0.95) 0%, rgba(233, 236, 239, 0.9) 50%, rgba(222, 226, 230, 0.95) 100%);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 
+                  0 4px 12px rgba(255, 255, 255, 0.4) inset,
+                  0 2px 0 rgba(255, 255, 255, 0.6) inset;
+      transform: translateY(-2px);
+    }
+
+    .light-theme .resource-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.8) 50%, rgba(233, 236, 239, 0.9) 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 
+                  0 2px 8px rgba(255, 255, 255, 0.3) inset,
+                  0 1px 0 rgba(255, 255, 255, 0.5) inset;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      color: #333;
+    }
+
+    .light-theme .resource-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .light-theme .resource-card:hover {
+      background: linear-gradient(135deg, rgba(248, 249, 250, 0.95) 0%, rgba(233, 236, 239, 0.9) 50%, rgba(222, 226, 230, 0.95) 100%);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 
+                  0 4px 12px rgba(255, 255, 255, 0.4) inset,
+                  0 2px 0 rgba(255, 255, 255, 0.6) inset;
+      transform: translateY(-2px);
+    }
+
+    .light-theme .download-item {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.8) 50%, rgba(233, 236, 239, 0.9) 100%);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 
+                  0 1px 4px rgba(255, 255, 255, 0.3) inset,
+                  0 1px 0 rgba(255, 255, 255, 0.4) inset;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+    }
+
+    .light-theme .download-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    /* Responsive Design */
+    
+    /* Header responsive styles */
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 15px;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 60px;
+      }
+
+      .headlogo {
+        flex: 1;
+        justify-content: flex-start;
+      }
+
+      .headlogo h2 {
+        font-size: 16px;
+      }
+
+      .header-center {
+        display: none;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .theme-toggle {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      .hamburger {
+        display: flex;
+        margin-left: 10px;
+      }
+
+      /* Hide specific elements on mobile */
+      .datetime,
+      .StudentName,
+      .school-text,
+      .header-center h1,
+      .page-title {
+        display: none !important;
+      }
+
+      /* Make icons bigger on mobile */
+      .subject-card img,
+      .resource-card img {
+        width: 32px !important;
+        height: 32px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 8px 10px;
+      }
+
+      .headlogo h2 {
+        font-size: 16px;
+      }
+
+      .header-center h1 {
+        font-size: 18px;
+      }
+
+      .lightning {
+        font-size: 14px;
+      }
+
+      .divider {
+        font-size: 14px;
+      }
+
+      .school-text {
+        font-size: 12px;
+      }
+    }
+
+    /* Mobile First - Base styles for mobile */
+    @media (max-width: 768px) {
+      .learn-container {
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 50px);
+      }
+
+      .subjects {
+        width: 100%;
+        padding: 15px;
+        background: #f8f8f8;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .subject-card {
+        margin-bottom: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .subject-card img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .resources {
+        padding: 15px;
+      }
+
+      .resource-top {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .resource-card {
+        padding: 12px;
+        font-size: 14px;
+      }
+
+      .resource-card img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .resource-bottom {
+        padding: 15px;
+        min-height: 300px;
+      }
+
+      .download-item {
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      .download-item button {
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+
+      .unavailable {
+        font-size: 16px;
+        padding-top: 20px;
+      }
+    }
+
+    /* Tablet styles */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .learn-container {
+        height: calc(100vh - 50px);
+      }
+
+      .subjects {
+        width: 180px;
+        padding: 15px;
+      }
+
+      .subject-card {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .resource-top {
+        gap: 15px;
+      }
+
+      .resource-card {
+        padding: 12px;
+        font-size: 14px;
+      }
+
+      .resources {
+        padding: 15px;
+      }
+    }
+
+    /* Small mobile devices */
+    @media (max-width: 480px) {
+      .subjects {
+        padding: 10px;
+      }
+
+      .subject-card {
+        padding: 8px 10px;
+        font-size: 13px;
+        margin-bottom: 6px;
+      }
+
+      .subject-card img {
+        width: 20px;
+        height: 20px;
+      }
+
+      .resources {
+        padding: 10px;
+      }
+
+      .resource-card {
+        padding: 10px;
+        font-size: 13px;
+      }
+
+      .resource-card img {
+        width: 20px;
+        height: 20px;
+      }
+
+      .resource-bottom {
+        padding: 10px;
+        min-height: 250px;
+      }
+
+      .download-item {
+        padding: 8px;
+        font-size: 13px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+
+      .download-item button {
+        width: 100%;
+        padding: 10px;
+      }
+
+      .unavailable {
+        font-size: 14px;
+        padding-top: 15px;
+      }
+
+      /* Hide specific elements on small mobile */
+      .datetime,
+      .StudentName,
+      .school-text,
+      .header-center h1,
+      .page-title {
+        display: none !important;
+      }
+
+      /* Make icons even bigger on small mobile */
+      .subject-card img,
+      .resource-card img {
+        width: 36px !important;
+        height: 36px !important;
+      }
+    }
+
+    /* Large screens optimization */
+    @media (min-width: 1200px) {
+      .learn-container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .subjects {
+        width: 250px;
+        padding: 25px;
+      }
+
+      .subject-card {
+        padding: 15px 18px;
+        font-size: 16px;
+      }
+
+      .resources {
+        padding: 25px;
+      }
+
+      .resource-card {
+        padding: 18px;
+        font-size: 16px;
+      }
+
+      .resource-bottom {
+        padding: 25px;
+      }
+    }
+
+    /* Landscape mobile orientation */
+    @media (max-width: 768px) and (orientation: landscape) {
+      .learn-container {
+        flex-direction: row;
+        height: calc(100vh - 50px);
+      }
+
+      .subjects {
+        width: 200px;
+        border-bottom: none;
+        border-right: 1px solid #ddd;
+      }
+
+      .resource-top {
+        flex-direction: row;
+        gap: 10px;
+      }
+    }
+
+    /* High DPI displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .subject-card img,
+      .resource-card img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+    }
+
+    /* Touch-friendly improvements */
+    @media (hover: none) and (pointer: coarse) {
+      .subject-card,
+      .resource-card {
+        min-height: 44px;
+        padding: 12px 15px;
+      }
+
+      .download-item button {
+        min-height: 44px;
+        min-width: 44px;
+      }
+
+      .theme-toggle {
+        min-height: 44px;
+        min-width: 44px;
+      }
+    }
+
+    /* Accessibility improvements */
+    @media (prefers-reduced-motion: reduce) {
+      .subject-card,
+      .resource-card,
+      .download-item button {
+        transition: none;
+      }
+    }
+
+    @media (prefers-contrast: high) {
+      .subject-card,
+      .resource-card {
+        border: 2px solid #fff;
+      }
+
+      .download-item {
+        border: 2px solid #000;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .learn-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .subjects {
+        width: 100%;
+        background: #fff;
+        border: 1px solid #000;
+      }
+
+      .resource-card,
+      .subject-card {
+        background: #fff !important;
+        color: #000 !important;
+        border: 1px solid #000;
+      }
+
+      .download-item button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="headlogo">
+      <a href="dashboard.html" class="lightning"></a>
+      <span class="divider">|</span>
+      <span class="school-text">School</span>
+    </div>
+    
+    <!-- Hamburger Menu -->
+    <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <div class="header-center">
+      <h1>Learn</h1>
+    </div>
+    <div class="header-right">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
+    <a href="timetable.html" class="mobile-nav-item">Time Table</a>
+    <a href="schedule.html" class="mobile-nav-item">Schedule</a>
+    <a href="classgroup.html" class="mobile-nav-item">Class Group</a>
+    <a href="quiz.html" class="mobile-nav-item">Quiz</a>
+    <a href="learn.html" class="mobile-nav-item">Learn</a>
+    <a href="rewards.html" class="mobile-nav-item">Rewards</a>
+    <a href="leaderboard.html" class="mobile-nav-item">Leaderboard</a>
+    <a href="profile.html" class="mobile-nav-item">Profile</a>
+    <div class="mobile-nav-theme">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark Mode</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="learn-container">
+    <!-- Left Column -->
+    <div class="subjects">
+      <div class="subject-card">Science <img src="../assets/icons/science icon.png" width="28" alt="Science"></div>
+      <div class="subject-card">Maths <img src="../assets/icons/math icon.png" width="28" alt="Maths"></div>
+      <div class="subject-card">Social <img src="../assets/icons/social icon.png" width="28" alt="Social"></div>
+      <div class="subject-card">English <img src="../assets/icons/english icon.png" width="28" alt="English"></div>
+      <div class="subject-card">Hindi <img src="../assets/icons/hindi icon.png" width="28" alt="Hindi"></div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="resources">
+      <!-- Top Row -->
+      <div class="resource-top">
+        <div class="resource-card" data-type="slides">Slides <img src="../assets/icons/slides icon.png" width="32" alt="Slides"></div>
+        <div class="resource-card" data-type="papers">Sample Papers <img src="../assets/icons/exam icon.png" width="32" alt="Sample Papers"></div>
+        <div class="resource-card" data-type="books">Books <img src="../assets/icons/books icon.png" width="32" alt="Books"></div>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="resource-bottom" id="resourceContent">
+        <p class="unavailable">Select a subject and resource to view content</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const subjects = document.querySelectorAll('.subject-card');
+    const resources = document.querySelectorAll('.resource-card');
+    const resourceContent = document.getElementById('resourceContent');
+
+    let currentSubject = null;
+
+    // Subject selection
+    subjects.forEach(sub => {
+      sub.addEventListener('click', () => {
+        subjects.forEach(s => s.classList.remove('active'));
+        sub.classList.add('active');
+        currentSubject = sub.textContent.trim();
+        resourceContent.innerHTML = `<p class="unavailable">Now select a resource for ${currentSubject}</p>`;
+      });
+    });
+
+    // Resource selection
+    resources.forEach(res => {
+      res.addEventListener('click', () => {
+        if (!currentSubject) {
+          resourceContent.innerHTML = `<p class="unavailable">Please select a subject first</p>`;
+          return;
+        }
+        resources.forEach(r => r.classList.remove('active'));
+        res.classList.add('active');
+        const type = res.dataset.type;
+
+        if (type === 'slides' || type === 'papers') {
+          // Example downloadable items
+          resourceContent.innerHTML = `
+            <div class="download-item">
+              ${currentSubject} ${type === 'slides' ? 'Slide' : 'Sample Paper'} 1
+              <button>Download</button>
+            </div>
+            <div class="download-item">
+              ${currentSubject} ${type === 'slides' ? 'Slide' : 'Sample Paper'} 2
+              <button>Download</button>
+            </div>
+          `;
+        } else if (type === 'books') {
+          resourceContent.innerHTML = `<p class="unavailable">Books are not available in this theme</p>`;
+        }
+      });
+    });
+
+    // Page-specific functionality
+  </script>
+</body>
+</html>

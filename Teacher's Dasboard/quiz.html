@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Hub - Quiz</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="quiz.css" />
+</head>
+<body>
+
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">School</span>
+  </div>
+  <div class="header-center">
+    <h1>Quiz</h1>
+  </div>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+    </button>
+    <div class="user-info">
+      <span id="userRole">Student</span>
+      <a href="profile.html" class="student-profile"><img src="../assets/icons/profile.png" alt="User Profile" loading="lazy"></a>
+    </div>
+  </div>
+</header>
+
+<div class="quiz-container">
+  <div class="quiz-selection">
+    <div class="selection-card">
+      <h3>Select Subject</h3>
+      <div class="subject-options">
+        <button class="option-btn" data-subject="teacher's-subject">Teacher'subject</button>
+      </div>
+    </div>
+    
+    <div class="selection-card">
+      <h3>Select Chapter</h3>
+      <div class="chapter-options" id="chapterOptions">
+        <p class="placeholder">Please select a subject first</p>
+      </div>
+    </div>
+    
+    <div class="selection-card">
+      <h3>Select Difficulty</h3>
+      <div class="difficulty-options">
+        <button class="difficulty-btn easy" data-difficulty="easy">Easy</button>
+        <button class="difficulty-btn medium" data-difficulty="medium">Medium</button>
+        <button class="difficulty-btn hard" data-difficulty="hard">Hard</button>
+      </div>
+    </div>
+    
+    <div class="quiz-actions">
+      <button class="start-quiz-btn" id="startQuizBtn" onclick="startQuiz()" disabled>Schedule Now</button>
+    </div>
+  </div>
+  
+  <!-- Quiz Interface (Hidden by default) -->
+  <div class="quiz-interface" id="quizInterface" style="display: none;">
+    <div class="quiz-header">
+      <div class="quiz-info">
+        <h3 id="quizSubject">Mathematics</h3>
+        <p id="quizChapter">Chapter 1: Algebra</p>
+        <p id="quizDifficulty">Medium</p>
+      </div>
+      <div class="quiz-timer">
+        <span id="timer">10:00</span>
+      </div>
+    </div>
+    
+    <div class="quiz-progress">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-text" id="progressText">Question 1 of 10</span>
+    </div>
+    
+    <div class="question-container">
+      <div class="question" id="questionText">
+        What is the value of x in the equation 2x + 5 = 13?
+      </div>
+      
+      <div class="options" id="questionOptions">
+        <button class="option" data-answer="A">A) 3</button>
+        <button class="option" data-answer="B">B) 4</button>
+        <button class="option" data-answer="C">C) 5</button>
+        <button class="option" data-answer="D">D) 6</button>
+      </div>
+    </div>
+    
+    <div class="quiz-navigation">
+      <button class="nav-btn prev-btn" id="prevBtn" onclick="previousQuestion()" disabled>Previous</button>
+      <button class="nav-btn next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+      <button class="nav-btn submit-btn" id="submitBtn" onclick="submitQuiz()" style="display: none;">Submit Quiz</button>
+    </div>
+  </div>
+  
+  <!-- Results Interface (Hidden by default) -->
+  <div class="results-interface" id="resultsInterface" style="display: none;">
+    <div class="results-card">
+      <h2>Quiz Results</h2>
+      <div class="score-display">
+        <div class="score-circle">
+          <span class="score-number" id="finalScore">8</span>
+          <span class="score-total">/10</span>
+        </div>
+        <div class="score-percentage" id="scorePercentage">80%</div>
+      </div>
+      
+      <div class="results-details">
+        <div class="result-item">
+          <span class="result-label">Correct Answers:</span>
+          <span class="result-value" id="correctAnswers">8</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Wrong Answers:</span>
+          <span class="result-value" id="wrongAnswers">2</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Time Taken:</span>
+          <span class="result-value" id="timeTaken">5:30</span>
+        </div>
+      </div>
+      
+      <div class="results-actions">
+        <button class="action-btn retake-btn" onclick="retakeQuiz()">Retake Quiz</button>
+        <button class="action-btn new-quiz-btn" onclick="newQuiz()">New Quiz</button>
+        <button class="action-btn dashboard-btn" onclick="goToDashboard()">Dashboard</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+
+
+<script>
+  // Theme toggle functionality
+  function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (body.classList.contains('light-theme')) {
+      body.classList.remove('light-theme');
+      themeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Load saved theme
+  function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-theme');
+      themeIcon.textContent = '☀️';
+    } else {
+      themeIcon.textContent = '🌙';
+    }
+  }
+
+  // Quiz data
+  const quizData = {
+    math: {
+      chapters: {
+        "Chapter 1: Algebra": [
+          {
+            question: "What is the value of x in the equation 2x + 5 = 13?",
+            options: ["3", "4", "5", "6"],
+            correct: 1
+          },
+          {
+            question: "Solve for y: 3y - 7 = 14",
+            options: ["5", "6", "7", "8"],
+            correct: 2
+          }
+        ],
+        "Chapter 2: Geometry": [
+          {
+            question: "What is the area of a circle with radius 5?",
+            options: ["25π", "50π", "75π", "100π"],
+            correct: 0
+          }
+        ]
+      }
+    },
+    science: {
+      chapters: {
+        "Chapter 1: Physics": [
+          {
+            question: "What is the unit of force?",
+            options: ["Joule", "Newton", "Watt", "Pascal"],
+            correct: 1
+          }
+        ]
+      }
+    }
+  };
+
+  let currentQuiz = {
+    subject: null,
+    chapter: null,
+    difficulty: null,
+    questions: [],
+    currentQuestion: 0,
+    answers: [],
+    startTime: null,
+    timer: null
+  };
+
+  // Subject selection
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      this.classList.add('selected');
+      
+      currentQuiz.subject = this.dataset.subject;
+      updateChapterOptions();
+      checkQuizReady();
+    });
+  });
+
+  // Chapter selection
+  function updateChapterOptions() {
+    const chapterOptions = document.getElementById('chapterOptions');
+    const subject = currentQuiz.subject;
+    
+    if (subject && quizData[subject]) {
+      chapterOptions.innerHTML = '';
+      Object.keys(quizData[subject].chapters).forEach(chapter => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = chapter;
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('#chapterOptions .option-btn').forEach(b => b.classList.remove('selected'));
+          this.classList.add('selected');
+          currentQuiz.chapter = chapter;
+          checkQuizReady();
+        });
+        chapterOptions.appendChild(btn);
+      });
+    }
+  }
+
+  // Difficulty selection
+  document.querySelectorAll('.difficulty-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('selected'));
+      this.classList.add('selected');
+      currentQuiz.difficulty = this.dataset.difficulty;
+      checkQuizReady();
+    });
+  });
+
+  function checkQuizReady() {
+    const startBtn = document.getElementById('startQuizBtn');
+    if (currentQuiz.subject && currentQuiz.chapter && currentQuiz.difficulty) {
+      startBtn.disabled = false;
+    } else {
+      startBtn.disabled = true;
+    }
+  }
+
+  function startQuiz() {
+    currentQuiz.questions = quizData[currentQuiz.subject].chapters[currentQuiz.chapter];
+    currentQuiz.currentQuestion = 0;
+    currentQuiz.answers = [];
+    currentQuiz.startTime = new Date();
+    
+    document.querySelector('.quiz-selection').style.display = 'none';
+    document.getElementById('quizInterface').style.display = 'block';
+    
+    document.getElementById('quizSubject').textContent = currentQuiz.subject.charAt(0).toUpperCase() + currentQuiz.subject.slice(1);
+    document.getElementById('quizChapter').textContent = currentQuiz.chapter;
+    document.getElementById('quizDifficulty').textContent = currentQuiz.difficulty.charAt(0).toUpperCase() + currentQuiz.difficulty.slice(1);
+    
+    startTimer();
+    loadQuestion();
+  }
+
+  function startTimer() {
+    let timeLeft = 600; // 10 minutes
+    currentQuiz.timer = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      document.getElementById('timer').textContent = 
+        `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      
+      if (timeLeft <= 0) {
+        submitQuiz();
+      }
+      timeLeft--;
+    }, 1000);
+  }
+
+  function loadQuestion() {
+    const question = currentQuiz.questions[currentQuiz.currentQuestion];
+    document.getElementById('questionText').textContent = question.question;
+    
+    const optionsContainer = document.getElementById('questionOptions');
+    optionsContainer.innerHTML = '';
+    
+    question.options.forEach((option, index) => {
+      const btn = document.createElement('button');
+      btn.className = 'option';
+      btn.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
+      btn.dataset.answer = String.fromCharCode(65 + index);
+      btn.addEventListener('click', selectAnswer);
+      optionsContainer.appendChild(btn);
+    });
+    
+    updateProgress();
+    updateNavigation();
+  }
+
+  function selectAnswer(event) {
+    document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+    event.target.classList.add('selected');
+    
+    currentQuiz.answers[currentQuiz.currentQuestion] = event.target.dataset.answer;
+  }
+
+  function nextQuestion() {
+    if (currentQuiz.currentQuestion < currentQuiz.questions.length - 1) {
+      currentQuiz.currentQuestion++;
+      loadQuestion();
+    }
+  }
+
+  function previousQuestion() {
+    if (currentQuiz.currentQuestion > 0) {
+      currentQuiz.currentQuestion--;
+      loadQuestion();
+    }
+  }
+
+  function updateProgress() {
+    const progress = ((currentQuiz.currentQuestion + 1) / currentQuiz.questions.length) * 100;
+    document.getElementById('progressFill').style.width = progress + '%';
+    document.getElementById('progressText').textContent = 
+      `Question ${currentQuiz.currentQuestion + 1} of ${currentQuiz.questions.length}`;
+  }
+
+  function updateNavigation() {
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    prevBtn.disabled = currentQuiz.currentQuestion === 0;
+    
+    if (currentQuiz.currentQuestion === currentQuiz.questions.length - 1) {
+      nextBtn.style.display = 'none';
+      submitBtn.style.display = 'inline-block';
+    } else {
+      nextBtn.style.display = 'inline-block';
+      submitBtn.style.display = 'none';
+    }
+  }
+
+  function submitQuiz() {
+    clearInterval(currentQuiz.timer);
+    
+    let correct = 0;
+    currentQuiz.questions.forEach((question, index) => {
+      const userAnswer = currentQuiz.answers[index];
+      const correctAnswer = String.fromCharCode(65 + question.correct);
+      if (userAnswer === correctAnswer) {
+        correct++;
+      }
+    });
+    
+    const timeTaken = new Date() - currentQuiz.startTime;
+    const minutes = Math.floor(timeTaken / 60000);
+    const seconds = Math.floor((timeTaken % 60000) / 1000);
+    
+    document.getElementById('finalScore').textContent = correct;
+    document.getElementById('scorePercentage').textContent = Math.round((correct / currentQuiz.questions.length) * 100) + '%';
+    document.getElementById('correctAnswers').textContent = correct;
+    document.getElementById('wrongAnswers').textContent = currentQuiz.questions.length - correct;
+    document.getElementById('timeTaken').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    
+    document.getElementById('quizInterface').style.display = 'none';
+    document.getElementById('resultsInterface').style.display = 'block';
+  }
+
+  function retakeQuiz() {
+    document.getElementById('resultsInterface').style.display = 'none';
+    document.getElementById('quizInterface').style.display = 'block';
+    startQuiz();
+  }
+
+  function newQuiz() {
+    document.getElementById('resultsInterface').style.display = 'none';
+    document.querySelector('.quiz-selection').style.display = 'block';
+    
+    // Reset selections
+    document.querySelectorAll('.option-btn, .difficulty-btn').forEach(btn => btn.classList.remove('selected'));
+    currentQuiz = { subject: null, chapter: null, difficulty: null };
+    checkQuizReady();
+  }
+
+  function goToDashboard() {
+    window.location.href = 'dashboard.html';
+  }
+
+  // Initialize everything when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+  });
+</script>
+
+</body>
+</html>

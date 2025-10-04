@@ -1,0 +1,291 @@
+import React, { useState } from "react";
+import { Download, RefreshCw, Printer, Plus } from "lucide-react";
+
+// Enhanced QuestionPaperGenerator.jsx
+// Production-ready with better UI, grouping, and more control.
+
+export default function QuestionPaperGenerator() {
+  const [meta, setMeta] = useState({
+    schoolName: "Your School Name",
+    examTitle: "Mid-Term Examination",
+    subject: "Social Science",
+    grade: "Class 10",
+    date: new Date().toLocaleDateString(),
+    totalMarks: 100,
+    duration: "3 hours",
+  });
+
+  const [chapters, setChapters] = useState(["Chapter 1", "Chapter 2"]);
+  const [selectedChapters, setSelectedChapters] = useState(["Chapter 1"]);
+
+  const [distribution, setDistribution] = useState({ mcq: 20, short: 30, long: 50 });
+  const [counts, setCounts] = useState({ mcq: 10, short: 6, long: 4 });
+
+  const [questionBankText, setQuestionBankText] = useState(
+    `{
+  "Chapter 1": {
+    "mcq": [
+      {"q":"Which year did X happen?","options":["A","B","C","D"],"ans":"A"}
+    ],
+    "short": ["Explain the reason for ..."],
+    "long": ["Discuss in detail ..."]
+  },
+  "Chapter 2": {
+    "mcq": [],
+    "short": [],
+    "long": []
+  }
+}`
+  );
+
+  const [generatedPaper, setGeneratedPaper] = useState(null);
+
+  function handleMetaChange(e) {
+    const { name, value } = e.target;
+    setMeta((m) => ({ ...m, [name]: value }));
+  }
+
+  function toggleChapter(ch) {
+    setSelectedChapters((s) =>
+      s.includes(ch) ? s.filter((c) => c !== ch) : [...s, ch]
+    );
+  }
+
+  function parseQuestionBank() {
+    try {
+      return JSON.parse(questionBankText);
+    } catch {
+      return null;
+    }
+  }
+
+  function sampleFromArray(arr) {
+    if (!arr || arr.length === 0) return null;
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function autoGenerateQuestion(type, chapter, i) {
+    if (type === "mcq") {
+      return {
+        q: `MCQ: What is the main idea of ${chapter}? (Q${i + 1})`,
+        options: ["Option A", "Option B", "Option C", "Option D"],
+        ans: "Option A",
+      };
+    }
+    if (type === "short") {
+      return `Short: Explain one key point from ${chapter} (Q${i + 1}).`;
+    }
+    return `Long: Discuss causes and effects in ${chapter} (Q${i + 1}).`;
+  }
+
+  function generatePaper() {
+    const bank = parseQuestionBank();
+    const paper = { meta, questions: [] };
+
+    function generate(type, total, count) {
+      for (let i = 0; i < count; i++) {
+        const ch = selectedChapters[i % selectedChapters.length] || chapters[0];
+        let q = bank && bank[ch] && bank[ch][type] && sampleFromArray(bank[ch][type]);
+        if (!q) q = autoGenerateQuestion(type, ch, i);
+        paper.questions.push({
+          type: type.toUpperCase(),
+          marks: Math.round(total / Math.max(1, count)),
+          content: q,
+        });
+      }
+    }
+
+    generate("mcq", distribution.mcq, counts.mcq);
+    generate("short", distribution.short, counts.short);
+    generate("long", distribution.long, counts.long);
+
+    paper.questions.sort((a, b) => {
+      const order = { MCQ: 0, SHORT: 1, LONG: 2 };
+      return order[a.type] - order[b.type];
+    });
+
+    setGeneratedPaper(paper);
+  }
+
+  function printPaper() {
+    window.print();
+  }
+
+  function downloadJSON() {
+    const dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(generatedPaper, null, 2));
+    const dlAnchor = document.createElement("a");
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute(
+      "download",
+      `${meta.subject || "paper"}-question-paper.json`
+    );
+    dlAnchor.click();
+  }
+
+  return (
+    <div className="p-6 max-w-6xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center">📘 Question Paper Generator</h1>
+
+      {/* Exam Details */}
+      <section className="bg-white rounded-lg shadow p-4 mb-6">
+        <h2 className="text-xl font-semibold mb-4">Exam Details</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {Object.keys(meta).map((field) => (
+            <input
+              key={field}
+              name={field}
+              value={meta[field]}
+              onChange={handleMetaChange}
+              placeholder={field}
+              className="p-2 border rounded"
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Chapters & Distribution */}
+      <section className="bg-white rounded-lg shadow p-4 mb-6">
+        <h2 className="text-xl font-semibold mb-4">Chapters & Marks Distribution</h2>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {chapters.map((ch) => (
+            <button
+              key={ch}
+              onClick={() => toggleChapter(ch)}
+              className={`px-3 py-1 border rounded ${
+                selectedChapters.includes(ch)
+                  ? "bg-blue-100 border-blue-500"
+                  : "hover:bg-gray-100"
+              }`}
+            >
+              {ch}
+            </button>
+          ))}
+          <button
+            onClick={() => setChapters([...chapters, `Chapter ${chapters.length + 1}`])}
+            className="px-3 py-1 flex items-center border rounded hover:bg-gray-100"
+          >
+            <Plus size={16} className="mr-1" /> Add chapter
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {["mcq", "short", "long"].map((type) => (
+            <div key={type} className="border p-3 rounded">
+              <label className="block text-sm capitalize">{type} total marks</label>
+              <input
+                type="number"
+                value={distribution[type]}
+                onChange={(e) =>
+                  setDistribution((d) => ({ ...d, [type]: Number(e.target.value) }))
+                }
+                className="p-2 border rounded w-full"
+              />
+              <label className="block text-sm mt-2 capitalize">{type} count</label>
+              <input
+                type="number"
+                value={counts[type]}
+                onChange={(e) =>
+                  setCounts((c) => ({ ...c, [type]: Number(e.target.value) }))
+                }
+                className="p-2 border rounded w-full"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Question Bank */}
+      <section className="bg-white rounded-lg shadow p-4 mb-6">
+        <h2 className="text-xl font-semibold mb-4">Question Bank (JSON)</h2>
+        <textarea
+          className="w-full p-3 border rounded h-48 font-mono text-sm"
+          value={questionBankText}
+          onChange={(e) => setQuestionBankText(e.target.value)}
+        />
+        <p className="text-xs text-gray-500 mt-2">
+          Paste JSON grouped by chapters → arrays for mcq, short, long. If empty, placeholders will be created.
+        </p>
+      </section>
+
+      {/* Actions */}
+      <div className="flex gap-3 mb-6">
+        <button
+          onClick={generatePaper}
+          className="px-4 py-2 bg-blue-600 text-white rounded flex items-center"
+        >
+          <RefreshCw size={16} className="mr-2" /> Generate Paper
+        </button>
+        <button
+          onClick={() => setGeneratedPaper(null)}
+          className="px-4 py-2 border rounded flex items-center"
+        >
+          Reset
+        </button>
+      </div>
+
+      {/* Generated Paper */}
+      {generatedPaper && (
+        <section className="bg-white rounded-lg shadow p-6 mb-6" id="paper">
+          <div className="flex justify-between items-start">
+            <div>
+              <h3 className="text-xl font-semibold">{generatedPaper.meta.schoolName}</h3>
+              <div className="text-sm">
+                {generatedPaper.meta.examTitle} — {generatedPaper.meta.subject} — {generatedPaper.meta.grade}
+              </div>
+            </div>
+            <div className="text-right text-sm">
+              <div>Date: {generatedPaper.meta.date}</div>
+              <div>Duration: {generatedPaper.meta.duration}</div>
+              <div>Total Marks: {generatedPaper.meta.totalMarks}</div>
+            </div>
+          </div>
+
+          <hr className="my-4" />
+
+          <ol className="list-decimal pl-6 space-y-3">
+            {generatedPaper.questions.map((q, idx) => (
+              <li key={idx}>
+                <div className="font-medium">{q.type} ({q.marks} marks)</div>
+                {typeof q.content === "string" ? (
+                  <div className="mt-1">{q.content}</div>
+                ) : (
+                  <div className="mt-1">
+                    <div>{q.content.q}</div>
+                    {q.content.options && (
+                      <ul className="list-disc pl-6 mt-2">
+                        {q.content.options.map((opt, i) => (
+                          <li key={i}>{opt}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-6 flex gap-3">
+            <button
+              onClick={printPaper}
+              className="px-4 py-2 border rounded flex items-center"
+            >
+              <Printer size={16} className="mr-2" /> Print / Save PDF
+            </button>
+            <button
+              onClick={downloadJSON}
+              className="px-4 py-2 border rounded flex items-center"
+            >
+              <Download size={16} className="mr-2" /> Download JSON
+            </button>
+          </div>
+        </section>
+      )}
+
+      <footer className="text-xs text-gray-500 text-center mt-6">
+        💡 Tip: Edit the JSON and regenerate to refine the paper. Use Print to export as PDF.
+      </footer>
+    </div>
+  );
+}
