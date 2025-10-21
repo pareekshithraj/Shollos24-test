@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page with Auto Slider</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Slider Styles */
+    .slider-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider-track {
+      display: flex;
+      width: 400%;
+      animation: slide 16s infinite;
+    }
+
+    .slider-track img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @keyframes slide {
+      0%   { transform: translateX(0%); }
+      25%  { transform: translateX(-100%); }
+      50%  { transform: translateX(-200%); }
+      75%  { transform: translateX(-300%); }
+      100% { transform: translateX(0%); }
+    }
+
+    /* Other Home Content (Optional) */
+    .home-content {
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Auto Image Slider on Home Screen -->
+  <div class="slider-container">
+    <div class="slider-track">
+      <img src="https://via.placeholder.com/1200x500/ff4444/ffffff?text=Welcome+1" alt="Slide 1">
+      <img src="https://via.placeholder.com/1200x500/44ff44/ffffff?text=Welcome+2" alt="Slide 2">
+      <img src="https://via.placeholder.com/1200x500/4444ff/ffffff?text=Welcome+3" alt="Slide 3">
+      <img src="https://via.placeholder.com/1200x500/ffff44/ffffff?text=Welcome+4" alt="Slide 4">
+    </div>
+  </div>
+
+  <!-- Home Page Content -->
+  <div class="home-content">
+    <h1>Welcome to My Website</h1>
+    <p>This is your homepage content below the image slider.</p>
+  </div>
+
+</body>
+</html>

@@ -6,6 +6,7 @@
   <title>Developer Dashboard - Schools24</title>
   <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="dev.css" />
   <script src="theme.js"></script>
 </head>
 <body>
@@ -24,10 +25,28 @@
 </header>
 
 <div class="main-container">
+  <!-- Overview Section -->
+  <div class="admin-section" style="margin-bottom:20px;">
+    <h2 class="section-title">📊 Overview</h2>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-value" id="kpiSchools">0</div><div class="kpi-label">Schools</div></div>
+      <div class="kpi-card"><div class="kpi-value" id="kpiAdmins">0</div><div class="kpi-label">Admins</div></div>
+      <div class="kpi-card"><div class="kpi-value" id="kpiTeachers">0</div><div class="kpi-label">Teachers</div></div>
+      <div class="kpi-card"><div class="kpi-value" id="kpiStudents">0</div><div class="kpi-label">Students</div></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn" onclick="exportSchoolsCsv()">Export Schools CSV</button>
+      <button class="btn" onclick="reindexSearch()">Reindex</button>
+    </div>
+  </div>
   <div class="admin-section">
     <h2 class="section-title">🏫 Create School</h2>
     <div class="teacher-allocation">
       <div class="allocation-form">
+        <div class="form-group">
+          <label>Search</label>
+          <input id="searchQuery" placeholder="Search by name or code" oninput="debouncedSearch()" />
+        </div>
         <div class="form-group">
           <label>School Name</label>
           <input id="schoolName" placeholder="e.g., SCHOOLS24 Academy" />
@@ -50,6 +69,10 @@
       <div class="allocation-form">
         <h3 style="color:#fff; margin-bottom:10px;">Your Schools</h3>
         <div id="schoolsList" class="allocation-list"></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button class="btn" onclick="prevPage()">Prev</button>
+          <button class="btn" onclick="nextPage()">Next</button>
+        </div>
         <button class="btn" onclick="loadSchools()">Refresh</button>
       </div>
     </div>
@@ -128,6 +151,14 @@
           <select id="usersListSchool" onchange="loadSchoolUsers()"></select>
         </div>
         <div id="schoolUsers" class="allocation-list"></div>
+        <div class="lock-row">
+          <div style="color:#e8f6ff">Lock Teacher Creation</div>
+          <input type="checkbox" id="lockTeachers" class="toggle" onchange="updateLocks()" />
+        </div>
+        <div class="lock-row">
+          <div style="color:#e8f6ff">Lock Student Creation</div>
+          <input type="checkbox" id="lockStudents" class="toggle" onchange="updateLocks()" />
+        </div>
       </div>
     </div>
   </div>
@@ -157,7 +188,11 @@ async function api(endpoint, options={}) {
 
 async function loadSchools() {
   try {
-    const data = await api('/developer/schools');
+    const params = new URLSearchParams();
+    if (state.query) params.set('q', state.query);
+    params.set('page', state.page);
+    params.set('pageSize', state.pageSize);
+    const data = await api(`/developer/schools?${params.toString()}`);
     const list = document.getElementById('schoolsList');
     const sel = document.getElementById('provisionSchool');
     const userSel = document.getElementById('userSchool');
@@ -166,22 +201,24 @@ async function loadSchools() {
     sel.innerHTML = '';
     userSel.innerHTML = '';
     usersListSel.innerHTML = '';
+    document.getElementById('kpiSchools').textContent = data.total ?? data.schools.length;
     data.schools.forEach(s => {
       const item = document.createElement('div');
       item.className = 'allocation-item';
       item.innerHTML = `<div class="allocation-info"><h4>${s.name} (${s.code})</h4><p>${s.domain||''} ${s.email?('• '+s.email):''}</p></div>`;
       list.appendChild(item);
       const opt = document.createElement('option');
-      opt.value = s._id; opt.textContent = `${s.name} (${s.code})`;
+      opt.value = s._id || s.id; opt.textContent = `${s.name} (${s.code})`;
       sel.appendChild(opt);
       const opt2 = document.createElement('option');
-      opt2.value = s._id; opt2.textContent = `${s.name} (${s.code})`;
+      opt2.value = s._id || s.id; opt2.textContent = `${s.name} (${s.code})`;
       userSel.appendChild(opt2);
       const opt3 = document.createElement('option');
-      opt3.value = s._id; opt3.textContent = `${s.name} (${s.code})`;
+      opt3.value = s._id || s.id; opt3.textContent = `${s.name} (${s.code})`;
       usersListSel.appendChild(opt3);
     });
     loadSchoolUsers();
+    loadOverviewCounts();
   } catch(e){ notify(e.message,'error'); }
 }
 
@@ -216,6 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (user.role !== 'developer') {
     notify('Developer access only','error');
   }
+  state = { page: 1, pageSize: 10, query: '' };
   loadSchools();
 });
 
@@ -224,6 +262,7 @@ async function loadSchoolUsers() {
     const schoolId = document.getElementById('usersListSchool').value;
     if (!schoolId) return;
     const data = await api(`/developer/schools/${schoolId}/users`);
+    const locks = await api(`/developer/schools/${schoolId}/locks`).catch(()=>({ lockTeacherCreation:false, lockStudentCreation:false }));
     const container = document.getElementById('schoolUsers');
     container.innerHTML = '';
     data.users.forEach(u => {
@@ -235,6 +274,8 @@ async function loadSchoolUsers() {
     if (container.children.length === 0) {
       container.innerHTML = '<p style="color:#fff;opacity:0.8;">No users yet</p>';
     }
+    document.getElementById('lockTeachers').checked = !!locks.lockTeacherCreation;
+    document.getElementById('lockStudents').checked = !!locks.lockStudentCreation;
   } catch(e){ notify(e.message,'error'); }
 }
 
@@ -251,6 +292,44 @@ async function createSchoolUser() {
     notify('User created','success');
     loadSchoolUsers();
   } catch(e){ notify(e.message,'error'); }
+}
+
+function prevPage(){ if(state.page>1){ state.page--; loadSchools(); } }
+function nextPage(){ state.page++; loadSchools(); }
+
+let searchTimer;
+function debouncedSearch(){
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(()=>{ state.query = document.getElementById('searchQuery').value.trim(); state.page = 1; loadSchools(); }, 350);
+}
+
+function exportSchoolsCsv(){
+  const params = new URLSearchParams();
+  if (state.query) params.set('q', state.query);
+  window.location = `${API_BASE}/developer/schools/export?${params.toString()}`;
+}
+
+async function reindexSearch(){
+  try{ await api('/developer/reindex', { method:'POST' }); notify('Reindex started','success'); }catch(e){ notify(e.message,'error'); }
+}
+async function updateLocks(){
+  const schoolId = document.getElementById('usersListSchool').value;
+  if(!schoolId) return;
+  const lockTeacherCreation = document.getElementById('lockTeachers').checked;
+  const lockStudentCreation = document.getElementById('lockStudents').checked;
+  try{
+    await api(`/developer/schools/${schoolId}/locks`, { method:'PUT', body: JSON.stringify({ lockTeacherCreation, lockStudentCreation }) });
+    notify('Locks updated','success');
+  }catch(e){ notify(e.message,'error'); }
+}
+
+async function loadOverviewCounts(){
+  try{
+    const data = await api('/developer/overview');
+    document.getElementById('kpiAdmins').textContent = data.admins || 0;
+    document.getElementById('kpiTeachers').textContent = data.teachers || 0;
+    document.getElementById('kpiStudents').textContent = data.students || 0;
+  }catch(e){ /* silent */ }
 }
 </script>
 

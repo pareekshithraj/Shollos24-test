@@ -1,0 +1,39 @@
+/* Developer Dashboard Theme */
+body{background:linear-gradient(135deg,#0f0f23 0%,#1a1a2e 25%,#16213e 50%,#0f3460 75%,#533483 100%);background-size:400% 400%;animation:devGradient 15s ease infinite}
+@keyframes devGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.section-title{color:#fff;font-size:1.6rem;margin-bottom:16px;display:flex;align-items:center;gap:10px;text-shadow:0 2px 18px rgba(0,212,255,.25)}
+.admin-section{background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:22px;box-shadow:0 12px 36px rgba(0,0,0,.35)}
+.teacher-allocation{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:6px}
+.allocation-form{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px;backdrop-filter:blur(10px)}
+.form-group label{color:#cfeafe;font-weight:600}
+.form-group input,.form-group select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff}
+.btn{background:linear-gradient(135deg,#00d4ff,#7a42ff);color:#fff;border:none;padding:12px 18px;border-radius:10px;font-weight:600;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 22px rgba(0,212,255,.25)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(122,66,255,.35)}
+.allocation-list{max-height:420px;overflow-y:auto}
+.allocation-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.allocation-info h4{color:#00d4ff;margin:0 0 4px 0}
+.allocation-info p{color:#e8f6ff;opacity:.85;margin:0;font-size:14px}
+
+/* Overview KPIs */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:18px;text-align:center}
+.kpi-value{font-size:1.8rem;color:#00d4ff;font-weight:800}
+.kpi-label{color:#e8f6ff;opacity:.85}
+
+/* Locks */
+.lock-row{display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);border-radius:10px;padding:12px;margin-top:10px}
+.toggle{appearance:none;width:48px;height:28px;border-radius:999px;background:#6b7280;position:relative;outline:none;cursor:pointer;transition:.2s;border:1px solid rgba(255,255,255,.2)}
+.toggle::after{content:"";position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:999px;background:#fff;transition:.2s}
+.toggle:checked{background:#22c55e}
+.toggle:checked::after{left:22px}
+
+/* Light theme overrides */
+.light-theme .admin-section{background:rgba(255,255,255,.9);border-color:rgba(0,0,0,.08)}
+.light-theme .allocation-form{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.08)}
+.light-theme .form-group label{color:#243b53}
+.light-theme .form-group input,.light-theme .form-group select{background:#fff;color:#0b1f33;border-color:#dce3ea}
+.light-theme .allocation-item{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.08)}
+
+@media(max-width:900px){.teacher-allocation{grid-template-columns:1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+

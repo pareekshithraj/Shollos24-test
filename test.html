@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schools24 | Smarter Learning for Every School</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * {margin:0; padding:0; box-sizing:border-box;}
+  body {font-family:'Poppins', sans-serif; color:#333; scroll-behavior:smooth;}
+
+  /* HEADER */
+  header {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 8%; width:100%; position:fixed; top:0; z-index:100;
+    background:rgba(0,0,0,0.3); transition:0.3s;
+  }
+  header.scrolled {background:#56ab2f;}
+  .logo {font-size:1.8rem; font-weight:700; color:white;}
+  nav ul {display:flex; list-style:none; gap:25px;}
+  nav ul li a {color:white; font-weight:500; transition:0.3s;}
+  nav ul li a:hover {opacity:0.8;}
+  .login-btn {background:linear-gradient(45deg,#ff9966,#ff5e62); border:none; border-radius:50px; padding:10px 25px; color:white; font-weight:600; cursor:pointer; transition:0.3s;}
+  .login-btn:hover {opacity:0.9; transform:scale(1.05);}
+
+  /* HERO */
+  .hero {
+    position:relative; height:100vh; display:flex; align-items:center; justify-content:space-between;
+    padding:0 8%; background:linear-gradient(135deg,#a8e063 0%,#56ab2f 100%); color:white; overflow:hidden;
+  }
+  .hero-content {max-width:600px; z-index:2; animation:fadeInUp 1s ease forwards;}
+  .hero-content h1 {font-size:3.5rem; line-height:1.2; margin-bottom:15px;}
+  .hero-content span {font-weight:800;}
+  .hero-content p {margin-bottom:30px; font-size:1rem; opacity:0.9;}
+  .hero-content button {
+    background:linear-gradient(45deg,#ff9966,#ff5e62); border:none; border-radius:50px;
+    padding:12px 35px; font-size:1rem; color:white; font-weight:600; cursor:pointer; transition:0.3s;
+  }
+  .hero-content button:hover {transform:scale(1.05);}
+  .mockups {position:relative; display:flex; align-items:center; justify-content:center; width:50%;}
+  .mockups img {width:100%; max-width:600px; animation:float 3s ease-in-out infinite;}
+
+  @keyframes float {0%,100%{transform:translateY(0px);}50%{transform:translateY(-20px);}}
+  @keyframes fadeInUp {0%{opacity:0; transform:translateY(50px);}100%{opacity:1; transform:translateY(0);}}
+
+  /* SECTIONS */
+  section {padding:100px 8%;}
+  h2 {font-size:2.5rem; margin-bottom:25px; text-align:center;}
+  p {font-size:1rem; line-height:1.6; text-align:center; color:#555;}
+
+  /* FEATURES */
+  .features {display:flex; justify-content:space-around; flex-wrap:wrap; gap:30px; margin-top:50px;}
+  .feature-card {
+    background:#fff; padding:30px; border-radius:15px; width:280px; text-align:center;
+    box-shadow:0 15px 25px rgba(0,0,0,0.1); transition:0.3s;
+  }
+  .feature-card:hover {transform:translateY(-10px) scale(1.05);}
+  .feature-card img {width:60px; margin-bottom:15px;}
+  .feature-card h3 {font-size:1.3rem; margin-bottom:10px;}
+  .feature-card p {font-size:0.95rem; color:#555;}
+
+  /* PRICING */
+  .pricing-cards {display:flex; justify-content:center; flex-wrap:wrap; gap:30px; margin-top:40px;}
+  .plan-card {
+    background:#fff; padding:35px; border-radius:15px; text-align:center; box-shadow:0 15px 25px rgba(0,0,0,0.1); width:300px;
+    transition:0.3s; position:relative;
+  }
+  .plan-card.featured::before {
+    content:"POPULAR"; position:absolute; top:-12px; right:-12px;
+    background:#ff5e62; color:white; padding:5px 15px; border-radius:50px; font-size:0.8rem;
+  }
+  .plan-card h3 {font-size:1.5rem; margin-bottom:15px;}
+  .plan-card .price {font-size:2rem; margin-bottom:15px;}
+  .plan-card ul {list-style:none; margin-bottom:20px; padding-left:0;}
+  .plan-card ul li {margin-bottom:10px;}
+  .plan-card button {
+    padding:12px 25px; border:none; border-radius:50px; cursor:pointer; font-weight:600;
+    background:linear-gradient(45deg,#6C63FF,#3F3D56); color:white; transition:0.3s;
+  }
+  .plan-card button:hover {transform:scale(1.05);}
+
+  /* TESTIMONIALS */
+  .testimonial-cards {display:flex; justify-content:center; flex-wrap:wrap; gap:30px; margin-top:30px;}
+  .testimonial-card {background:#fff; padding:30px; border-radius:15px; max-width:300px; box-shadow:0 15px 25px rgba(0,0,0,0.1); text-align:center; transition:0.3s;}
+  .testimonial-card:hover {transform:translateY(-5px);}
+  .testimonial-card p {margin-bottom:15px; color:#555;}
+  .testimonial-card h4 {color:#6C63FF;}
+
+  /* FAQ */
+  .faq-item {max-width:800px; margin:20px auto; text-align:left; background:#f9f9f9; padding:20px 30px; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.05); transition:all 0.3s ease; cursor:pointer;}
+  .faq-item h3 {font-size:1.3rem; margin-bottom:10px; color:#6C63FF;}
+  .faq-item p {display:none; font-size:1rem; color:#555; line-height:1.6;}
+  .faq-item.active p {display:block;}
+
+  /* INTEGRATIONS */
+  .integration-icons {display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:40px;}
+  .integration-icons img {width:100px; transition:transform 0.3s ease;}
+  .integration-icons img:hover {transform:scale(1.1);}
+
+  /* CTA */
+  .cta {background:#6C63FF; color:white; padding:80px 8%; text-align:center;}
+  .cta button {background:white; color:#6C63FF; padding:15px 40px; border:none; border-radius:50px; cursor:pointer; font-weight:600; transition:0.3s;}
+  .cta button:hover {transform:translateY(-3px); background:#e0e0ff;}
+
+  /* CONTACT */
+  .contact {background:#f9f9f9; padding:80px 8%; text-align:center;}
+  .contact input, .contact textarea {width:100%; padding:15px; margin:12px 0; border-radius:8px; border:1px solid #ccc; font-size:1rem;}
+  .contact button {padding:15px 35px; border:none; border-radius:50px; background:#6C63FF; color:white; cursor:pointer; transition:0.3s;}
+  .contact button:hover {opacity:0.9; transform:scale(1.05);}
+
+  /* RESPONSIVE */
+  @media (max-width:900px){
+    .hero {flex-direction:column; text-align:center;}
+    .mockups {width:100%; margin-top:40px;}
+    .features, .pricing-cards, .testimonial-cards, .integration-icons {flex-direction:column; align-items:center;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Schools24</div>
+  <nav>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <button class="login-btn">Log In | Register</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Online Learning <br><span>Tailored for Every School</span></h1>
+    <p>No lock-in contracts. No hidden fees. Smarter, simpler, and faster for students and teachers.</p>
+    <button>Learn More →</button>
+  </div>
+  <div class="mockups">
+    <img src="https://i.imgur.com/ZcN0u0k.png" alt="Device Mockups">
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <h2>Why Schools24?</h2>
+  <div class="feature-card">
+    <img src="https://i.imgur.com/ZV7R7gA.png" alt="Quiz Feature">
+    <h3>Personalized Quizzes</h3>
+    <p>Adaptive quizzes to match each student's level and progress.</p>
+  </div>
+  <div class="feature-card">
+    <img src="https://i.imgur.com/1iTtkQX.png" alt="Study Materials">
+    <h3>Study Materials</h3>
+    <p>High-quality learning materials for all boards and subjects.</p>
+  </div>
+  <div class="feature-card">
+    <img src="https://i.imgur.com/f6E2oZx.png" alt="Scoreboard">
+    <h3>Score Boards</h3>
+    <p>Track performance and motivate students with globalized scores.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <h2>Choose Your Plan</h2>
+  <div class="pricing-cards">
+    <div class="plan-card">
+      <h3>Basic</h3>
+      <p class="price">₹499/User</p>
+      <ul>
+        <li>Access to study materials</li>
+        <li>Limited dashboard access</li>
+        <li>Email support</li>
+      </ul>
+      <button>Get Started</button>
+    </div>
+    <div class="plan-card featured">
+      <h3>Pro</h3>
+      <p class="price">₹999/User</p>
+      <ul>
+        <li>Everything in Basic</li>
+        <li>Full dashboard access</li>
+        <li>Smart classroom integration</li>
+        <li>24/7 support</li>
+      </ul>
+      <button>Upgrade Now</button>
+    </div>
+    <div class="plan-card">
+      <h3>Enterprise</h3>
+      <p class="price">₹1999/User</p>
+      <ul>
+        <li>All Pro features</li>
+        <li>Custom branding</li>
+        <li>Admin training & setup</li>
+        <li>Dedicated support manager</li>
+      </ul>
+      <button>Contact Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <h2>What Our Users Say</h2>
+  <div class="testimonial-cards">
+    <div class="testimonial-card">
+      <p>"Schools24 has transformed the way our students learn. The quiz feature keeps them engaged!"</p>
+      <h4>- Mr. Ramesh, Teacher</h4>
+    </div>
+    <div class="testimonial-card">
+      <p>"My scores improved drastically after using Schools24 materials. Highly recommended!"</p>
+      <h4>- Sneha, Student</h4>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <h3>Is there a free trial?</h3>
+    <p>Yes! You can try Schools24 for 14 days without any cost.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can multiple schools use one account?</h3>
+    <p>Each school requires a separate account, but our pricing is flexible.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Do you provide study materials offline?</h3>
+    <p>Yes, downloadable study materials are available for all students.</p>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="integrations">
+  <h2>Our Partners & Integrations</h2>
+  <div class="integration-icons">
+    <img src="https://i.imgur.com/4xvPMfH.png" alt="Google Classroom">
+    <img src="https://i.imgur.com/LxQhOTx.png" alt="Microsoft Teams">
+    <img src="https://i.imgur.com/3VJYyXf.png" alt="Zoom">
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Get Started With Schools24 Today</h2>
+  <p>Join hundreds of schools and students already using our platform.</p>
+  <button>Sign Up Now</button>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2>Contact Us</h2>
+  <input type="text" placeholder="Your Name">
+  <input type="email" placeholder="Your Email">
+  <textarea placeholder="Your Message"></textarea>
+  <button>Send Message</button>
+</section>
+
+<script>
+  // Header scroll effect
+  window.addEventListener('scroll', function(){
+    document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // FAQ accordion
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('active');
+    });
+  });
+</script>
+
+</body>
+</html>

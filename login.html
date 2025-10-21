@@ -1,404 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schools24 - Login</title>
-  <link rel="icon" type="image/x-icon" href="assets/Logo.png">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+  <title>Login Page</title>
+  <link rel="stylesheet" href="./Style/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    body {
-      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .login-container {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 40px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .logo-section {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .logo {
-      width: 120px;
-      height: 80px;
-      background-image: url('assets/Logo.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      margin: 0 auto 15px;
-      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-    }
-
-    .school-name {
-      font-size: 24px;
-      font-weight: bold;
-      background: linear-gradient(45deg, #ffffff, #ffd700);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
-    }
-
-    .tagline {
-      font-size: 14px;
-      opacity: 0.8;
-      margin-bottom: 30px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 500;
-      color: #ffffff;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      font-size: 14px;
-      transition: all 0.3s ease;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: #00d4ff;
-      box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
-    }
-
-    .form-group input::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .login-btn {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 20px;
-    }
-
-    .login-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
-    }
-
-    .login-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .demo-credentials {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 15px;
-      margin-top: 20px;
-    }
-
-    .demo-credentials h4 {
-      color: #00d4ff;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    .demo-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 12px;
-    }
-
-    .demo-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .role-badge {
-      background: rgba(0, 212, 255, 0.2);
-      color: #00d4ff;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 10px;
-      font-weight: 500;
-    }
-
-    .error-message {
-      background: rgba(255, 71, 87, 0.2);
-      color: #ff4757;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-size: 14px;
-      display: none;
-    }
-
-    .success-message {
-      background: rgba(0, 212, 255, 0.2);
-      color: #00d4ff;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-size: 14px;
-      display: none;
-    }
-
-    .loading {
-      display: none;
-      text-align: center;
-      color: #00d4ff;
-      font-size: 14px;
-    }
-
-    @media (max-width: 480px) {
-      .login-container {
-        margin: 20px;
-        padding: 30px 20px;
-      }
-    }
-  </style>
 </head>
 <body>
   <div class="login-container">
-    <div class="logo-section">
-      <div class="logo"></div>
-      <div class="school-name">SCHOOLS24</div>
-      <div class="tagline">School Management System</div>
+    <h2>Welcome Back</h2>
+
+    <!-- Demo Login Buttons -->
+    <div class="demo-buttons" style="margin-bottom: 20px;">
+      <button type="button" class="demo-btn developer" onclick="fillDeveloperCredentials()">
+        🚀 DEVELOPER PANEL
+      </button>
+      <button type="button" class="demo-btn admin" onclick="fillAdminCredentials()">
+        🏫 ADMIN DASHBOARD
+      </button>
+      <button type="button" class="demo-btn teacher" onclick="fillTeacherCredentials()">
+        👨‍🏫 TEACHER VIEW
+      </button>
+      <button type="button" class="demo-btn student" onclick="fillStudentCredentials()">
+        👨‍🎓 STUDENT PORTAL
+      </button>
     </div>
 
     <form id="loginForm">
-      <div class="error-message" id="errorMessage"></div>
-      <div class="success-message" id="successMessage"></div>
-      <div class="loading" id="loadingMessage">Logging in...</div>
-
-      <div class="form-group">
-        <label for="userId">User ID</label>
-        <input type="text" id="userId" name="userId" placeholder="Enter your User ID" required>
+      <input type="email" id="username" placeholder="Email Address" required
+       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+       title="Please enter a valid email address">
+    
+       <div class="password-wrapper">
+        <input type="password" id="password" placeholder="Password" required>
+        <div class="toggle-container">
+          <i class="fas fa-eye" id="togglePassword"></i>
+        </div>
       </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+    
+      <div class="remember-me">
+        <input type="checkbox" id="remember">
+        <label for="remember">Remember Me</label>
       </div>
-
-      <button type="submit" class="login-btn" id="loginBtn">Login</button>
+    
+      <p class="error-message" id="errorMessage">Invalid username or password.</p>
+    
+      <button type="submit">Log In</button>
+      
     </form>
-
-    <div class="demo-credentials">
-      <h4>Demo Credentials</h4>
-      <div class="demo-item">
-        <span>admin@schools24.com</span>
-        <span class="role-badge">Admin</span>
-      </div>
-      <div class="demo-item">
-        <span>sarah.johnson@schools24.com</span>
-        <span class="role-badge">Teacher</span>
-      </div>
-      <div class="demo-item">
-        <span>john.doe@schools24.com</span>
-        <span class="role-badge">Student</span>
-      </div>
-      <div style="margin-top: 10px; font-size: 11px; opacity: 0.7; text-align: center;">
-        Password for all demo accounts: admin123 / teacher123 / student123
-      </div>
+    <div class="footer" style="font-size: large;">
+      New here? <a href="signup.html" style="color: yellow; font-size:large">Sign up</a> now
     </div>
+    
   </div>
 
   <script>
-    // API Configuration
-    const API_BASE = 'http://localhost:5000/api';
-
-    // Form elements
+    const togglePassword = document.getElementById('togglePassword');
+    const password = document.getElementById('password');
     const loginForm = document.getElementById('loginForm');
-    const userIdInput = document.getElementById('userId');
-    const passwordInput = document.getElementById('password');
-    const loginBtn = document.getElementById('loginBtn');
     const errorMessage = document.getElementById('errorMessage');
-    const successMessage = document.getElementById('successMessage');
-    const loadingMessage = document.getElementById('loadingMessage');
+  
+    togglePassword.addEventListener('click', () => {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      togglePassword.classList.toggle('fa-eye');
+      togglePassword.classList.toggle('fa-eye-slash');
+    });
 
-    // Show/hide messages
-    function showError(message) {
-      errorMessage.textContent = message;
-      errorMessage.style.display = 'block';
-      successMessage.style.display = 'none';
-      loadingMessage.style.display = 'none';
-    }
-
-    function showSuccess(message) {
-      successMessage.textContent = message;
-      successMessage.style.display = 'block';
-      errorMessage.style.display = 'none';
-      loadingMessage.style.display = 'none';
-    }
-
-    function showLoading() {
-      loadingMessage.style.display = 'block';
-      errorMessage.style.display = 'none';
-      successMessage.style.display = 'none';
-      loginBtn.disabled = true;
-    }
-
-    function hideMessages() {
-      errorMessage.style.display = 'none';
-      successMessage.style.display = 'none';
-      loadingMessage.style.display = 'none';
-      loginBtn.disabled = false;
-    }
-
-    // Handle form submission
-    loginForm.addEventListener('submit', async (e) => {
+  
+    loginForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      
-      const userId = userIdInput.value.trim();
-      const password = passwordInput.value.trim();
 
-      if (!userId || !password) {
-        showError('Please enter User ID and Password');
-        return;
-      }
-
-      showLoading();
+      const email = document.getElementById('username').value.trim();
+      const pwd = password.value.trim();
 
       try {
-        const response = await fetch(`${API_BASE}/auth/login`, {
+        // Call login API
+        const response = await fetch('http://localhost:5000/api/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ userId, password })
+          body: JSON.stringify({
+            email: email,
+            password: pwd
+          })
         });
 
         const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.message || 'Login failed');
+        if (response.ok) {
+          // Store JWT token and user info
+          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+
+          errorMessage.style.display = 'none';
+
+          // Redirect based on role
+          switch(data.user.role) {
+            case 'developer':
+              window.location.href = 'Developer\'s Dashboard/dashboard.html';
+              break;
+            case 'admin':
+              window.location.href = 'Admin\'s Dashboard/dashboard.html';
+              break;
+            case 'teacher':
+              window.location.href = 'Teacher\'s Dashboard/dashboard.html';
+              break;
+            case 'student':
+              window.location.href = 'Student\'s Dashboard/dashboard.html';
+              break;
+            default:
+              window.location.href = 'index.html';
+          }
+        } else {
+          errorMessage.textContent = data.message || 'Invalid email or password';
+          errorMessage.style.display = 'block';
         }
-
-        // Store token and user info
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-
-        showSuccess(`Welcome back, ${data.user.name}!`);
-
-        // Redirect based on role
-        setTimeout(() => {
-          switch (data.user.role) {
-            case 'developer':
-              window.location.href = 'Developer\'s Dashboard/dashboard.html';
-              break;
-            case 'admin':
-              window.location.href = 'Admin\'s Dashboard/dashboard.html';
-              break;
-            case 'teacher':
-              window.location.href = 'Teacher\'s Dasboard/dashboard.html';
-              break;
-            case 'student':
-              window.location.href = 'Student\'s Dashboard/dashboard.html';
-              break;
-            default:
-              window.location.href = 'Student\'s Dashboard/dashboard.html';
-          }
-        }, 1500);
-
       } catch (error) {
-        console.error('Login error:', error);
-        showError(error.message || 'Login failed. Please try again.');
+        errorMessage.textContent = 'Network error. Please try again.';
+        errorMessage.style.display = 'block';
       }
     });
 
-    // Demo credential click handlers
-    document.addEventListener('click', (e) => {
-      if (e.target.closest('.demo-item')) {
-        const demoItem = e.target.closest('.demo-item');
-        const email = demoItem.querySelector('span').textContent;
-        const role = demoItem.querySelector('.role-badge').textContent.toLowerCase();
-        
-        userIdInput.value = role === 'admin' ? 'ADMIN001' : role === 'teacher' ? 'TEACH001' : 'STU2024001';
-        passwordInput.value = role === 'admin' ? 'admin123' : role === 'teacher' ? 'teacher123' : 'student123';
-        hideMessages();
-      }
-    });
+    // Demo button functions
+    function fillDeveloperCredentials() {
+      document.getElementById('username').value = 'dev@schools24.com';
+      document.getElementById('password').value = 'dev123';
+    }
 
-    // Clear messages when user starts typing
-    userIdInput.addEventListener('input', hideMessages);
-    passwordInput.addEventListener('input', hideMessages);
+    function fillAdminCredentials() {
+      document.getElementById('username').value = 'admin@schools24.com';
+      document.getElementById('password').value = 'admin123';
+    }
 
-    // Check if user is already logged in
-    const existingToken = localStorage.getItem('authToken');
-    const existingUser = localStorage.getItem('user');
+    function fillTeacherCredentials() {
+      document.getElementById('username').value = 'sarah.johnson@schools24.com';
+      document.getElementById('password').value = 'teacher123';
+    }
 
-    if (existingToken && existingUser) {
-      try {
-        const user = JSON.parse(existingUser);
-        showSuccess(`Already logged in as ${user.name}. Redirecting...`);
-        
-        setTimeout(() => {
-          switch (user.role) {
-            case 'developer':
-              window.location.href = 'Developer\'s Dashboard/dashboard.html';
-              break;
-            case 'admin':
-              window.location.href = 'Admin\'s Dashboard/dashboard.html';
-              break;
-            case 'teacher':
-              window.location.href = 'Teacher\'s Dasboard/dashboard.html';
-              break;
-            case 'student':
-              window.location.href = 'Student\'s Dashboard/dashboard.html';
-              break;
-            default:
-              window.location.href = 'Student\'s Dashboard/dashboard.html';
-          }
-        }, 1500);
-      } catch (error) {
-        // Clear invalid data
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('user');
-      }
+    function fillStudentCredentials() {
+      document.getElementById('username').value = 'john.doe@schools24.com';
+      document.getElementById('password').value = 'student123';
     }
   </script>
+  
 </body>
 </html>
-

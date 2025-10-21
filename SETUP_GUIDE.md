@@ -45,10 +45,8 @@ cd backend
 npm install
 
 # Create environment file
-echo "PORT=5000
-MONGODB_URI=mongodb://localhost:27017/schools24
-JWT_SECRET=your_super_secure_jwt_secret_key_change_in_production
-NODE_ENV=development" > .env
+npm run seed
+
 
 # Seed the database with sample data
 npm run seed

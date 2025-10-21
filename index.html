@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schools24 - Smart Classroom Solutions</title>
+    <link rel="stylesheet" href="new-landing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html">
+                    <img src="assets/Logo.png" alt="Schools24 Logo">
+                    </a>
+                    <span class="logo-text"></span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    
+                    <a href="team.html">About</a>
+                    <a href="#services">Services</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="locate-us.html">Locate Us</a>
+                </nav>
+
+                <!-- Auth Buttons -->
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-ghost">Log In</a>
+                    <a href="signup.html" class="btn btn-primary">Register</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobile-menu">
+                <nav class="nav-mobile">
+                    <a href="#about" onclick="closeMobileMenu()">About</a>
+                    <a href="#services" onclick="closeMobileMenu()">Services</a>
+                    <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
+                    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+                    <div class="mobile-auth">
+                        <a href="login.html" class="btn btn-ghost">Log In</a>
+                        <a href="signup.html" class="btn btn-primary">Register</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text" data-aos="fade-right">
+                    <h1 class="hero-title">
+                        Smart Classroom
+                        <span class="gradient-text">Solutions</span>
+                        <br>for Your School
+                    </h1>
+                    <p class="hero-description">
+                        Transform your educational space with cutting-edge technology. 
+                        No lock-in contracts. No hidden costs. LMS, SIS and ERP integrations.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#services" class="btn btn-primary btn-large">
+                            Learn More
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="#contact" class="btn btn-outline btn-large">Contact Us</a>
+                    </div>
+                </div>
+                
+                <div class="hero-image" data-aos="fade-left">
+                    <div class="image-wrapper">
+                        <img src="assets/icons/mocups hero.png" alt="Students learning with tablets" class="hero-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Wave Divider -->
+        <div class="wave-divider">
+            <svg viewBox="0 0 1440 120" class="wave">
+                <path fill="#ffffff" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">Our <span class="gradient-text">Services</span></h2>
+      <p class="section-description">
+        Schools24 provides complete smart school infrastructure — from digital classrooms to secure campuses.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <!-- 1 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-image">
+          <img src="assets/icons/SmartBoards.jpg" alt="Smart Board Installation">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+              <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2"/>
+              <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="service-content">
+          <h3>Smart Board Installation</h3>
+          <p>Modern touch-enabled interactive boards that transform traditional teaching into engaging digital experiences.</p>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-image">
+          <img src="assets/icons/ComputerLab.jpg" alt="Computer Lab Setup">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+              <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2"/>
+              <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="service-content">
+          <h3>Computer Lab Setup</h3>
+          <p>Complete computer lab installation with cutting-edge hardware, software, and ongoing maintenance support.</p>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-image">
+          <img src="assets/icons/ScienceLab.jpg" alt="Science Lab Solutions">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 11H15M9 15H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="service-content">
+          <h3>Science Lab Solutions</h3>
+          <p>State-of-the-art laboratory equipment and digital tools for hands-on experimentation and discovery.</p>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="service-image">
+          <img src="assets/icons/TabletLearn.jpg" alt="Tablet-Based Learning">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+              <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2"/>
+              <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="service-content">
+          <h3>Tablet-Based Learning</h3>
+          <p>Comprehensive tablet programs with educational apps, content management, and device administration.</p>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+        <div class="service-image">
+          <img src="assets/icons/CCTV.jpg" alt="CCTV & Security Systems">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M2 12L12 4L22 12L12 20L2 12Z" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+        <div class="service-content">
+          <h3>CCTV & Security Systems</h3>
+          <p>Comprehensive surveillance setup ensuring complete safety for students and school infrastructure.</p>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+        <div class="service-image">
+          <img src="assets/icons/SIS.png" alt="SIS & LMS Integration">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 4H20V20H4V4Z" stroke="currentColor" stroke-width="2"/>
+              <line x1="4" y1="8" x2="20" y2="8" stroke="currentColor" stroke-width="2"/>
+              <line x1="10" y1="8" x2="10" y2="20" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="service-content">
+          <h3>SIS & LMS Integration</h3>
+          <p>Unify student data, classes, and assignments in one smart platform for smooth and connected learning.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+    <!-- Features Section -->
+    <section class="features" id="about">
+        <div class="container">
+            <div class="features-content">
+                <div class="features-image" data-aos="fade-right">
+                    <div class="image-wrapper">
+                        <img src="assets/1.png" alt="Students collaborating with technology">
+                    </div>
+                </div>
+                
+                <div class="features-text" data-aos="fade-left">
+                    <h2 class="section-title">
+                        Why Choose <span class="gradient-text">Schools24?</span>
+                    </h2>
+                    <p class="section-description">
+                        We're committed to revolutionizing education through technology, making learning more engaging, accessible, and effective.
+                    </p>
+                    
+                    <div class="features-list">
+                        <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h3>Easy Implementation</h3>
+                                <p>Quick setup with minimal disruption to your school operations</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M16 21V19C16 17.9391 15.5786 16.9217 14.8284 16.1716C14.0783 15.4214 13.0609 15 12 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M12.5 7C12.5 9.20914 10.7091 11 8.5 11C6.29086 11 4.5 9.20914 4.5 7C4.5 4.79086 6.29086 3 8.5 3C10.7091 3 12.5 4.79086 12.5 7ZM23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89317 18.7122 8.75608 18.1676 9.45768C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h3>Student-Centered</h3>
+                                <p>Designed with students' learning experiences at the core</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h3>Proven Results</h3>
+                                <p>Measurable improvements in engagement and outcomes</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h3>Safe & Secure</h3>
+                                <p>Enterprise-grade security and data protection</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" data-aos="fade-up" data-aos-delay="500">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h3>Always Updated</h3>
+                                <p>Regular updates and new features at no extra cost</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" data-aos="fade-up" data-aos-delay="600">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20.84 4.61C19.32 2.64 17.09 1.69 14.84 1.69C12.59 1.69 10.36 2.64 8.84 4.61C7.32 6.58 7.32 9.42 8.84 11.39L12 14.55L15.16 11.39C16.68 9.42 16.68 6.58 15.16 4.61Z" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h3>Dedicated Support</h3>
+                                <p>Expert team ready to help whenever you need</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Schools Transformed</div>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Happy Students</div>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfaction Rate</div>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Expert Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">What Schools Say</h2>
+                <p class="section-description">
+                    Join hundreds of schools transforming education with our solutions
+                </p>
+            </div>
+
+            <div class="testimonials-slider">
+                <div class="testimonials-track" id="testimonials-track">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="testimonial-text">
+                            "Schools24 helped our students stay organized and improve their performance drastically."
+                        </p>
+                        <div class="testimonial-author">
+                            <h4>Priya Sharma</h4>
+                            <p>Delhi Public School</p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="testimonial-text">
+                            "The dashboard is super intuitive and helps our teachers track class progress easily."
+                        </p>
+                        <div class="testimonial-author">
+                            <h4>John Mathew</h4>
+                            <p>St. Mary's Academy</p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="testimonial-text">
+                            "Excellent customer service and support during onboarding. Highly recommend!"
+                        </p>
+                        <div class="testimonial-author">
+                            <h4>Aisha Khan</h4>
+                            <p>Global Learners</p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="testimonial-text">
+                            "We integrated Schools24 in less than a week and saw engagement double."
+                        </p>
+                        <div class="testimonial-author">
+                            <h4>Ravi Patel</h4>
+                            <p>SmartEdge School</p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="testimonial-text">
+                            "The analytics tools are a game changer — data-driven decisions every day."
+                        </p>
+                        <div class="testimonial-author">
+                            <h4>Sarah George</h4>
+                            <p>Hill Valley High</p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="testimonial-text">
+                            "Parents love being able to track their children's learning progress anytime."
+                        </p>
+                        <div class="testimonial-author">
+                            <h4>Marcus Lopez</h4>
+                            <p>Sunrise Academy</p>
+                        </div>
+                    </div>
+
+                    <!-- Duplicate cards for seamless loop -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="testimonial-text">
+                            "Schools24 helped our students stay organized and improve leur performance drastically."
+                        </p>
+                        <div class="testimonial-author">
+                            <h4>Priya Sharma</h4>
+                            <p>Delhi Public School</p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="testimonial-text">
+                            "The dashboard is super intuitive and helps our teachers track class progress easily."
+                        </p>
+                        <div class="testimonial-author">
+                            <h4>John Mathew</h4>
+                            <p>St. Mary's Academy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="cta-bg">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2 class="cta-title">Ready to Transform Your School?</h2>
+                <p class="cta-description">
+                    Join hundreds of schools already using our smart classroom solutions. 
+                    Get started today with a free consultation.
+                </p>
+                
+                <div class="cta-form">
+                    <div class="form-group">
+                        <input type="email" placeholder="Enter your email" class="form-input">
+                        <a href="signup.html" class="btn btn-secondary btn-large">
+                            Get Started
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="form-note">No commitment required. Free consultation and quote.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/Logo.png" alt="Schools24 Logo">
+                        <span>Schools24</span>
+                    </div>
+                    <p>Transforming education through innovative smart classroom solutions.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li>Smart Boards</li>
+                        <li>Computer Labs</li>
+                        <li>Science Labs</li>
+                        <li>Tablet Learning</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>Email: pareekshith913@gmail.com</li>
+                        <li>Phone: +91 9110893850</li>
+                        <li>Support: 24/7 Available</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Schools24. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="new-landing.js"></script>
+</body>
+</html>
+
+

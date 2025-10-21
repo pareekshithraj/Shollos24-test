@@ -1,0 +1,530 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* Animated gradient background */
+.home {
+  background-image: linear-gradient(-45deg, #240036a6, #5900ff8f, #000000a9, #5d00ffa8), url('assets/background.png');
+  background-size: 150% 150%;
+  animation: gradient 20s ease infinite;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Typing effect */
+.typing {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid white;
+  width: 0;
+  animation: typing 3s steps(30, end) forwards, blink 0.7s step-end infinite;
+}
+
+/* Button style */
+.intro-text button {
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+  border: 1px solid #ffffff33;
+  transition: transform 0.3s ease;
+}
+.intro-text button:hover {
+  transform: scale(1.1);
+}
+
+/* Center intro text */
+.intro-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+/* Header style with glass effect */
+header {
+  width: 90%;
+  display: flex;
+  padding: 10px 20px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  margin: auto;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+header a {
+  margin: 0 5px;
+  padding: 10px;
+  text-decoration: none;
+  color: yellow;
+  font-size: 25px;
+  transition: color 0.3s ease;
+}
+header a:hover {
+  color: white;
+}
+
+header img {
+  width: 130px;
+  border-radius: 10px;
+  margin: 0 10px;
+}
+
+/* Layout tweaks */
+.logo {
+  display: flex;
+  margin-left: 15%;
+}
+.pages {
+  display: flex;
+  margin-right: 15%;
+}
+
+/* PRICING SECTION */
+.pricing {
+  background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+  text-align: center;
+  padding: 100px 8%;
+  position: relative;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 20px;
+  width: 300px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  color: #2f8f46;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111;
+  margin: 15px 0;
+}
+
+.price span {
+  font-size: 1rem;
+  color: #666;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 25px 0;
+  color: #333;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.card ul li {
+  margin: 8px 0;
+}
+
+.btn {
+  background: linear-gradient(45deg, #56ab2f, #a8e063);
+  border: none;
+  padding: 12px 30px;
+  color: white;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Featured (middle) card */
+.pricing {
+  padding: 100px 10%;
+  background: #f8fafc;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.pricing-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.pricing-subtitle {
+  color: #555;
+  margin-bottom: 50px;
+  font-size: 1.1rem;
+}
+
+.pricing-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.plan-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  width: 300px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.plan-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #56ab2f;
+  margin: 10px 0 25px;
+}
+
+.price span {
+  font-size: 1rem;
+  color: #777;
+}
+
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.plan-card li {
+  margin: 10px 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.plan-btn {
+  background: linear-gradient(135deg, #56ab2f, #a8e063);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  padding: 12px 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.plan-btn:hover {
+  background: linear-gradient(135deg, #a8e063, #56ab2f);
+  box-shadow: 0 5px 20px rgba(86, 171, 47, 0.4);
+}
+
+.featured {
+  border: 2px solid #56ab2f;
+  transform: scale(1.05);
+}
+
+.badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: #56ab2f;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ===========================
+   Testimonials Section
+=========================== */
+.testimonials {
+  background: #f9f9f9;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.testimonial-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.testimonial-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  max-width: 350px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+}
+
+.testimonial-card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.testimonial-card h4 {
+  font-size: 1.1rem;
+  color: #6C63FF;
+}
+
+/* ===========================
+   Integrations Section
+=========================== */
+.integrations {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #6C63FF, #3F3D56);
+  color: #fff;
+  text-align: center;
+}
+
+.integrations h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.integrations p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+.integration-icons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.integration-icons img {
+  width: 100px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.integration-icons img:hover {
+  transform: scale(1.1);
+}
+
+/* ===========================
+   FAQ Section
+=========================== */
+.faq {
+  background: #f9f9f9;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.faq h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.faq-item {
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: left;
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.faq-item h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #6C63FF;
+}
+
+.faq-item p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ===========================
+   Call-To-Action Section
+=========================== */
+.cta {
+  background: #6C63FF;
+  color: #fff;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.cta h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.cta p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+.cta-btn {
+  background: #fff;
+  color: #6C63FF;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+  background: #e0e0ff;
+  transform: translateY(-3px);
+}
+
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pricing-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+/* Typing animation keyframes */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Gradient background animation */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Responsive Nav Toggle */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+.menu-toggle span {
+  background: yellow;
+  height: 4px;
+  width: 30px;
+  margin: 4px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .pages {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.411);
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .pages.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .typing {
+    font-size: 2rem;
+  }
+}

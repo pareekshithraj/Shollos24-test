@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Hub - Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="Style/index2.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- ✅ AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body> 
+
+<div class="home" data-aos="fade-in">
+  <header data-aos="fade-down">
+    <div class="logo">
+      <img src="assets/Logo.png" alt="Study Hub Logo" />
+    </div>
+
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="pages" id="pages">
+      <a href="#">Home</a>
+      <a href="team.html">About</a>
+      <a href="product2.html">Store</a>
+      <a href="#contact">Locate Us</a>
+    </div>
+  </header>
+
+  <div class="intro-text" data-aos="zoom-in">
+    <h1 class="typing">Welcome To Schools24</h1>
+    <a href="#pricing" style="text-decoration: none;">
+      <button id="explore-btn">Explore</button>
+    </a>
+  </div>
+</div>
+
+<!-- PRICING SECTION -->
+<section class="pricing" id="pricing" data-aos="fade-up">
+  <h2 class="pricing-title">Choose Your Plan</h2>
+  <p class="pricing-subtitle">Flexible plans for schools, teachers, and students.</p>
+  <img src="assets/2.png" alt="Header Icon" class="header-icon">
+
+  <div class="pricing-cards" data-aos="fade-up" data-aos-delay="100">
+    <div class="plan-card">
+      <h3>Basic</h3>
+      <p class="price">₹499<span>/User</span></p>
+      <ul>
+        <li>Access to study materials</li>
+        <li>Limited dashboard access</li>
+        <li>Email support</li>
+      </ul>
+      <button class="plan-btn">Get Started</button>
+    </div>
+
+    <div class="plan-card featured" data-aos="zoom-in">
+      <div class="badge">Popular</div>
+      <h3>Pro</h3>
+      <p class="price">₹999<span>/User</span></p>
+      <ul>
+        <li>Everything in Basic</li>
+        <li>Full dashboard access</li>
+        <li>Smart classroom integration</li>
+        <li>24/7 support</li>
+      </ul>
+      <button class="plan-btn">Upgrade Now</button>
+    </div>
+
+    <div class="plan-card" data-aos="fade-up" data-aos-delay="200">
+      <h3>Enterprise</h3>
+      <p class="price">₹1999<span>/User</span></p>
+      <ul>
+        <li>All Pro features</li>
+        <li>Custom branding</li>
+        <li>Admin training & setup</li>
+        <li>Dedicated support manager</li>
+      </ul>
+      <button class="plan-btn">Contact Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section" data-aos="fade-up">
+  <div class="stat-card" data-aos="zoom-in">
+    <div class="stat-icon">
+      <img src="assets/student.png" alt="Happy Students" />
+    </div>
+    <div class="stat-text">
+      <h3>500 +</h3>
+      <p>Happy Students</p>
+    </div>
+  </div>
+
+  <div class="stat-card" data-aos="zoom-in" data-aos-delay="150">
+    <div class="stat-icon">
+      <img src="assets/hat.png" alt="Partnered Schools" />
+    </div>
+    <div class="stat-text">
+      <h3>40 +</h3>
+      <p>Partnered Schools</p>
+    </div>
+  </div>
+</section>
+
+<!-- Hero Section -->
+<section class="hero-section" data-aos="fade-up">
+  <div class="hero-content" data-aos="fade-right">
+    <h2>One Stop Solution</h2>
+    <p>At Study Hub We Provide One Stop Solution For<br>
+    All Your Requirements At An Affordable Price</p>
+    <p>We Have Resources For State | CBSE Syllabus</p>
+    <p>Contact Us For The Software integration</p>
+  </div>
+  <div class="hero-image-wrapper" data-aos="fade-left">
+    <img src="assets/4.png" class="fg-image" alt="tablet with books">
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" data-aos="fade-up">
+  <h2 class="features-heading">Software Features</h2>
+  <img src="assets/5.png" alt="Feature Screenshot">
+  <p class="track-text">Track your Studies Using Our Software</p>
+</section>
+
+<!-- We Provide Section -->
+<div class="we-provide-section" data-aos="fade-up">
+  <h2><strong>We Provide:</strong></h2>
+  <ul class="provide-list">
+    <li>Score Board To Motivate Students To Learn And Score More.</li>
+    <li>Rewards And Winnings To Encourage Students.</li>
+    <li>Study Materials To Simplify Learning Offline.</li>
+    <li>Doubt Section To Clarify Questions And Promote Doubt-Free Learning.</li>
+  </ul>
+  <img src="assets/1.png" alt="Astronaut" class="astronaut-img">
+</div>
+
+<!-- Quiz Feature -->
+<div class="quiz-feature" data-aos="fade-up">
+  <img src="assets/6.2.png" alt="Laptop with Quiz Dashboard" class="quiz-image">
+  <div class="quiz-text" data-aos="fade-right">
+    <h2><span class="highlight">Personalized Quiz:</span></h2>
+    <p>It helps students to solve quizzes throughout their learning journey.</p>
+    <p>It allows students to select difficulty levels to match their progress.</p>
+  </div>
+</div>
+
+<!-- Study Materials -->
+<div class="study-materials" data-aos="fade-up">
+  <div class="study-text" data-aos="fade-right">
+    <h2><strong>Study Materials</strong></h2>
+    <p>We provide study materials to all students of integrated schools at no extra cost.</p>
+  </div>
+  <div class="study-image" data-aos="fade-left">
+    <img src="assets/7.2.png" alt="Study Materials Preview">
+  </div>
+</div>
+
+<!-- Score Boards -->
+<div class="score-board" data-aos="fade-up">
+  <div class="score-image" data-aos="fade-right">
+    <img src="assets/8.2.png" alt="Score Board Image">
+  </div>
+  <div class="score-text" data-aos="fade-left">
+    <h2><strong>Score Boards</strong></h2>
+    <p>Students can track performance using globalized score data to motivate themselves to study harder.</p>
+  </div>
+</div>
+
+<!-- Mission Section -->
+<section class="mission-section" data-aos="fade-up">
+  <div class="mission-content">
+    <h2>Our Mission</h2>
+    <ul>
+      <li>Simplify learning and empower students to achieve academic excellence.</li>
+      <li>Every student deserves access to smart learning tools.</li>
+      <li>Together, let’s unlock every student’s true potential.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials" data-aos="fade-up">
+  <h2>What Our Clients Say About Us</h2>
+  <div class="testimonial-slider">
+    <div class="testimonial-track">
+      <!-- Original + 12 new testimonials (total ~15) -->
+      <div class="testimonial-card">
+        <p>"Schools24 helped our students stay organized and improve their performance drastically."</p>
+        <h4>— Priya Sharma, Delhi Public School</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"The dashboard is super intuitive and helps our teachers track class progress easily."</p>
+        <h4>— John Mathew, St. Mary’s Academy</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"Excellent customer service and support during onboarding. Highly recommend!"</p>
+        <h4>— Aisha Khan, Global Learners</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"We integrated Schools24 in less than a week and saw engagement double."</p>
+        <h4>— Ravi Patel, SmartEdge School</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"The analytics tools are a game changer — data-driven decisions every day."</p>
+        <h4>— Sarah George, Hill Valley High</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"Parents love being able to track their children’s learning progress anytime."</p>
+        <h4>— Marcus Lopez, Sunrise Academy</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"We’ve reduced manual grading time by 60% — it’s that efficient."</p>
+        <h4>— Emily Roberts, Future Minds School</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"The best decision we made was switching to Schools24 — smooth experience throughout."</p>
+        <h4>— Amit Desai, BrightSteps Institute</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"Modern UI, fast performance, and great mobile optimization. 10/10."</p>
+        <h4>— Zoe Anderson, Maplewood School</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"The platform made remote teaching effortless during our hybrid transition."</p>
+        <h4>— Hannah Lee, EduPlus International</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"Customization options are impressive — fits perfectly with our branding."</p>
+        <h4>— Daniel Kim, Crescent High</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"Reliable and secure. We’ve never had downtime or data issues."</p>
+        <h4>— Olivia Singh, Knowledge Tree School</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"Our teachers find it simple yet powerful. Great value for money."</p>
+        <h4>— Michael Davis, Silverstone Academy</h4>
+      </div>
+
+      <div class="testimonial-card">
+        <p>"It’s like having an AI-powered assistant for our classrooms."</p>
+        <h4>— Sofia Mehta, NextGen High School</h4>
+      </div>
+
+      <!-- duplicate cards to make loop seamless -->
+      <div class="testimonial-card">
+        <p>"Schools24 helped our students stay organized and improve their performance drastically."</p>
+        <h4>— Priya Sharma, Delhi Public School</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Integrations Section -->
+<section class="integrations" data-aos="fade-up">
+  <h2>Seamless Integrations</h2>
+  <p>We integrate with smart boards, tablets, and school dashboards to create a complete digital learning environment.</p>
+  <div class="integration-icons" data-aos="zoom-in">
+    <img src="assets/smartboard.png" alt="Smart Board">
+    <img src="assets/tablet.png" alt="Tablet">
+    <img src="assets/lab.png" alt="Science Lab">
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="faq" data-aos="fade-up">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">Can students access materials offline?</button>
+    <div class="faq-answer" aria-hidden="true">Yes — all study materials are downloadable for offline access, so students can study without internet connectivity.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">Is there a free trial?</button>
+    <div class="faq-answer" aria-hidden="true">Yes — we offer a 7-day free trial for schools and teachers to explore the full platform before committing.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">Can teachers track student progress?</button>
+    <div class="faq-answer" aria-hidden="true">Absolutely — teachers can view quiz results, progress reports, attendance, and analytics via their dashboard.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">Does Schools24 support multiple syllabuses?</button>
+    <div class="faq-answer" aria-hidden="true">Yes — the platform supports State and CBSE syllabuses and can be configured for other boards via content settings.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">Can parents access their child’s performance?</button>
+    <div class="faq-answer" aria-hidden="true">Yes — parents can log in to view performance dashboards, reports and receive notifications about progress.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">Is there a mobile app available?</button>
+    <div class="faq-answer" aria-hidden="true">Yes — Schools24 is mobile-friendly and a native app is available (or coming soon depending on your build); most features are accessible on mobile web.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">How can schools integrate their existing systems?</button>
+    <div class="faq-answer" aria-hidden="true">Our API and integration team can connect Schools24 with existing ERPs, SIS, or smart boards — we provide documentation and implementation support.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">Can we customize the platform with our school branding?</button>
+    <div class="faq-answer" aria-hidden="true">Yes — enterprise plans include custom branding (logo, colors, domain) and configurable UI elements.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" aria-expanded="false">What support is available?</button>
+    <div class="faq-answer" aria-hidden="true">We provide email/chat support for all users and 24/7 priority support for enterprise customers, plus onboarding help and documentation.</div>
+  </div>
+</section>
+
+
+<!-- CTA Section -->
+<section class="cta" data-aos="fade-up">
+  <h2>Get Started With Schools24 Today</h2>
+  <p>Join hundreds of schools and students already using our platform.</p>
+  <a href="signup"><button class="cta-btn">Sign Up Now</button></a>
+</section>
+
+<!-- Contact Section -->
+<footer class="contact-footer" id="contact" data-aos="fade-up">
+  <div class="contact-container">
+    <div class="contact-form" data-aos="fade-right">
+      <input type="text" placeholder="Name" class="input-field" />
+      <input type="text" placeholder="Phone" class="input-field" />
+      <textarea placeholder="Message" class="input-field textarea-field"></textarea>
+      <button class="send-button">Send</button>
+      <br>
+      <img src="assets/Logo.png" alt="logo" class="footer-logo">
+    </div>
+
+    <div class="contact-info" data-aos="fade-left">
+      <p>+91 9110893850</p>
+      <p>+91 9964872474</p>
+      <p>Email: pareekshith913@gmail.com</p>
+      <div class="icons">
+        <img src="assets/telegram.png" alt="Telegram" />
+        <img src="assets/whatsapp.png" alt="WhatsApp" />
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="JS/animation.js"></script>
+
+<!-- ✅ AOS JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    easing: 'ease-out-cubic',
+    once: true
+  });
+
+  // Hamburger menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const pages = document.getElementById('pages');
+  menuToggle.addEventListener('click', () => {
+    pages.classList.toggle('active');
+  });
+</script>
+</body>
+</html>
