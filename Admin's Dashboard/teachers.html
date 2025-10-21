@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+  <title>Manage Teachers - Schools24</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <script src="theme.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">School</span>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="datetime" id="datetime"></div>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+    </button>
+    <a href="profile.html" class="StudentName" id="StudentName">
+      <span>Admin</span>
+      <img src="../assets/icons/profile.png" alt="Admin Profile" loading="lazy">
+    </a>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
+  <a href="teachers.html" class="mobile-nav-item">Manage Teachers</a>
+  <a href="classes.html" class="mobile-nav-item">Manage Classes</a>
+  <a href="students.html" class="mobile-nav-item">Manage Students</a>
+  <a href="subjects.html" class="mobile-nav-item">Manage Subjects</a>
+  <a href="profile.html" class="mobile-nav-item">Profile</a>
+  <div class="mobile-nav-theme">
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Dark Mode</span>
+    </button>
+  </div>
+</div>
+
+<div class="main-container">
+  <div class="admin-section">
+    <h2 class="section-title">👩‍🏫 Teachers</h2>
+    <div class="teacher-allocation">
+      <div class="allocation-form">
+        <h3 style="color:#ffffff; margin-bottom: 15px;">Add Teacher</h3>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input id="name" placeholder="e.g. Priya Sharma" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="e.g. priya@school.edu" />
+        </div>
+        <div class="form-group">
+          <label for="userId">Teacher ID</label>
+          <input id="userId" placeholder="e.g. TCHR001" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="min 6 characters" />
+        </div>
+        <button class="btn" onclick="createTeacher()">Create Teacher</button>
+      </div>
+
+      <div class="allocation-form">
+        <h3 style="color:#ffffff; margin-bottom: 15px;">All Teachers</h3>
+        <div class="allocation-list" id="teachersList"></div>
+        <button class="btn" onclick="loadTeachers()">Refresh</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'http://localhost:5000/api';
+let authToken = localStorage.getItem('authToken');
+
+function formatDate(date) {
+  const d = new Date(date);
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+function formatTime(date) {
+  const d = new Date(date);
+  return d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+}
+
+function updateDateTime() {
+  const now = new Date();
+  const el = document.getElementById('datetime');
+  if (el) el.textContent = `${formatDate(now)} | ${formatTime(now)}`;
+}
+
+async function apiCall(endpoint, options = {}) {
+  const url = `${API_BASE}${endpoint}`;
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+    },
+    ...options
+  };
+  const res = await fetch(url, config);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || 'Request failed');
+  return data;
+}
+
+function showNotification(message, type = 'info') {
+  const n = document.createElement('div');
+  n.style.cssText = `position:fixed;top:20px;right:20px;padding:12px 16px;border-radius:8px;color:#fff;z-index:1000;opacity:0;transform:translateY(-10px);transition:all .3s ease;${type==='success'?'background:#00a8ff;':type==='error'?'background:#e84118;':'background:#341f97;'}`;
+  n.textContent = message;
+  document.body.appendChild(n);
+  requestAnimationFrame(()=>{n.style.opacity='1';n.style.transform='translateY(0)';});
+  setTimeout(()=>{n.style.opacity='0';n.style.transform='translateY(-10px)';setTimeout(()=>n.remove(),300);},2500);
+}
+
+async function loadTeachers() {
+  try {
+    const data = await apiCall('/admin/teachers');
+    const list = document.getElementById('teachersList');
+    list.innerHTML = '';
+    data.teachers.forEach(t => {
+      const item = document.createElement('div');
+      item.className = 'allocation-item';
+      const classes = (t.assignedClasses||[]).map(c=>`${c.name}-${c.grade} ${c.section}`).join(', ') || '—';
+      const subjects = (t.subjects||[]).map(s=>`${s.name}`).join(', ') || '—';
+      item.innerHTML = `
+        <div class="allocation-info">
+          <h4>${t.name} (${t.userId})</h4>
+          <p>Email: ${t.email || '—'}</p>
+          <p>Classes: ${classes}</p>
+          <p>Subjects: ${subjects}</p>
+        </div>`;
+      list.appendChild(item);
+    });
+    if (!list.children.length) list.innerHTML = '<p style="color:#fff;opacity:.8;text-align:center;padding:20px;">No teachers found</p>';
+  } catch (e) {
+    showNotification(e.message, 'error');
+  }
+}
+
+async function createTeacher() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const userId = document.getElementById('userId').value.trim();
+  const password = document.getElementById('password').value;
+  if (!name || !email || !userId || !password) {
+    showNotification('Please fill all fields', 'error');
+    return;
+  }
+  try {
+    await apiCall('/admin/users', {
+      method: 'POST',
+      body: JSON.stringify({ name, email, password, role: 'teacher', userId })
+    });
+    showNotification('Teacher created', 'success');
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('userId').value = '';
+    document.getElementById('password').value = '';
+    loadTeachers();
+  } catch (e) {
+    showNotification(e.message, 'error');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadTheme();
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+  loadTeachers();
+});
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+  <title>Manage Subjects - Schools24</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <script src="theme.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">School</span>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="datetime" id="datetime"></div>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+    </button>
+    <a href="profile.html" class="StudentName" id="StudentName">
+      <span>Admin</span>
+      <img src="../assets/icons/profile.png" alt="Admin Profile" loading="lazy">
+    </a>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
+  <a href="teachers.html" class="mobile-nav-item">Manage Teachers</a>
+  <a href="classes.html" class="mobile-nav-item">Manage Classes</a>
+  <a href="students.html" class="mobile-nav-item">Manage Students</a>
+  <a href="subjects.html" class="mobile-nav-item">Manage Subjects</a>
+  <a href="profile.html" class="mobile-nav-item">Profile</a>
+  <div class="mobile-nav-theme">
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Dark Mode</span>
+    </button>
+  </div>
+</div>
+
+<div class="main-container">
+  <div class="admin-section">
+    <h2 class="section-title">📚 Subjects</h2>
+    <div class="teacher-allocation">
+      <div class="allocation-form">
+        <h3 style="color:#ffffff; margin-bottom: 15px;">Create Subject</h3>
+        <div class="form-group">
+          <label for="sname">Subject Name</label>
+          <input id="sname" placeholder="e.g. Mathematics" />
+        </div>
+        <div class="form-group">
+          <label for="scode">Code</label>
+          <input id="scode" placeholder="e.g. MATH" />
+        </div>
+        <button class="btn" onclick="createSubject()">Create Subject</button>
+      </div>
+      <div class="allocation-form">
+        <h3 style="color:#ffffff; margin-bottom: 15px;">All Subjects</h3>
+        <div class="allocation-list" id="subjectsList"></div>
+        <button class="btn" onclick="loadSubjects()">Refresh</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'http://localhost:5000/api';
+let authToken = localStorage.getItem('authToken');
+
+function formatDate(date){const d=new Date(date);return d.toLocaleDateString();}
+function formatTime(date){const d=new Date(date);return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});}
+function updateDateTime(){const now=new Date();const el=document.getElementById('datetime'); if(el) el.textContent=`${formatDate(now)} | ${formatTime(now)}`;}
+
+async function apiCall(endpoint, options={}){
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    headers: { 'Content-Type': 'application/json', ...(authToken && { 'Authorization': `Bearer ${authToken}` }) },
+    ...options
+  });
+  const data = await res.json();
+  if(!res.ok) throw new Error(data.message || 'Request failed');
+  return data;
+}
+
+function showNotification(message, type='info'){
+  const n=document.createElement('div');
+  n.style.cssText=`position:fixed;top:20px;right:20px;padding:12px 16px;border-radius:8px;color:#fff;z-index:1000;opacity:0;transform:translateY(-10px);transition:all .3s ease;${type==='success'?'background:#00a8ff;':type==='error'?'background:#e84118;':'background:#341f97;'}`;
+  n.textContent=message;document.body.appendChild(n);requestAnimationFrame(()=>{n.style.opacity='1';n.style.transform='translateY(0)';});setTimeout(()=>{n.style.opacity='0';n.style.transform='translateY(-10px)';setTimeout(()=>n.remove(),300);},2500);
+}
+
+async function loadSubjects(){
+  try{
+    const data = await apiCall('/admin/subjects');
+    const list = document.getElementById('subjectsList');
+    list.innerHTML='';
+    data.subjects.forEach(s=>{
+      const item=document.createElement('div');
+      item.className='allocation-item';
+      item.innerHTML=`
+        <div class="allocation-info">
+          <h4>${s.name} (${s.code})</h4>
+        </div>`;
+      list.appendChild(item);
+    })
+    if(!list.children.length) list.innerHTML='<p style="color:#fff;opacity:.8;text-align:center;padding:20px;">No subjects found</p>';
+  }catch(e){showNotification(e.message,'error');}
+}
+
+async function createSubject(){
+  const name=document.getElementById('sname').value.trim();
+  const code=document.getElementById('scode').value.trim();
+  if(!name || !code){showNotification('Fill all fields','error');return;}
+  try{
+    await apiCall('/admin/subjects', { method:'POST', body: JSON.stringify({ name, code }) });
+    showNotification('Subject created','success');
+    document.getElementById('sname').value='';
+    document.getElementById('scode').value='';
+    loadSubjects();
+  }catch(e){showNotification(e.message,'error');}
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadTheme();
+  updateDateTime();
+  setInterval(updateDateTime,1000);
+  loadSubjects();
+});
+</script>
+
+</body>
+</html>
+
+

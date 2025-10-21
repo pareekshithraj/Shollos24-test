@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+  <title>Profile - Schools24</title>
+  <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <script src="theme.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="headlogo">
+    <a href="dashboard.html" class="lightning"></a>
+    <span class="divider">|</span>
+    <span class="school-text">School</span>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="datetime" id="datetime"></div>
+  <div class="header-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+    </button>
+    <a href="profile.html" class="StudentName" id="StudentName">
+      <span>Admin</span>
+      <img src="../assets/icons/profile.png" alt="Admin Profile" loading="lazy">
+    </a>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="dashboard.html" class="mobile-nav-item">Dashboard</a>
+  <a href="teachers.html" class="mobile-nav-item">Manage Teachers</a>
+  <a href="classes.html" class="mobile-nav-item">Manage Classes</a>
+  <a href="students.html" class="mobile-nav-item">Manage Students</a>
+  <a href="subjects.html" class="mobile-nav-item">Manage Subjects</a>
+  <a href="profile.html" class="mobile-nav-item">Profile</a>
+  <div class="mobile-nav-theme">
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span class="theme-icon">🌙</span>
+      <span class="theme-text">Dark Mode</span>
+    </button>
+  </div>
+</div>
+
+<div class="main-container">
+  <div class="admin-section">
+    <h2 class="section-title">👤 Admin Profile</h2>
+    <div class="allocation-item">
+      <div class="allocation-info">
+        <h4 id="adminName">Admin</h4>
+        <p id="adminEmail">—</p>
+        <p id="adminId">—</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function formatDate(date){const d=new Date(date);return d.toLocaleDateString();}
+function formatTime(date){const d=new Date(date);return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});}
+function updateDateTime(){const now=new Date();const el=document.getElementById('datetime'); if(el) el.textContent=`${formatDate(now)} | ${formatTime(now)}`;}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadTheme();
+  updateDateTime();
+  setInterval(updateDateTime,1000);
+  const user = JSON.parse(localStorage.getItem('currentUser')||'{}');
+  document.getElementById('adminName').textContent = user.name || 'Admin';
+  document.getElementById('adminEmail').textContent = user.email || '—';
+  document.getElementById('adminId').textContent = user.userId ? `ID: ${user.userId}` : '—';
+});
+</script>
+
+</body>
+</html>
+
+
